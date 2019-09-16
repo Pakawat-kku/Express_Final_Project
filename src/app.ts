@@ -20,6 +20,8 @@ import indexRoute from './routes/index';
 import loginRoute from './routes/login';
 import requestRoute from './routes/request';
 import reqRoute from './routes/req';
+import clothTypeRoute from './routes/clothType';
+import clothRoute from './routes/cloth';
 
 
 // Assign router to the express.Router() instance
@@ -98,6 +100,8 @@ let checkAuth = (req: Request, res: Response, next: NextFunction) => {
 app.use('/login', loginRoute);
 app.use('/api', checkAuth, requestRoute);
 app.use('/req', reqRoute);
+app.use('/clothType', clothTypeRoute);
+app.use('/cloth', clothRoute);
 app.use('/', indexRoute);
 
 //error handlers

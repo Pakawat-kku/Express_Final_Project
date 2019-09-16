@@ -1,7 +1,7 @@
 import * as Knex from 'knex';
 
 export class ReqModel {
-  dbName = 'cloth';
+  dbName = 'employee';
 
   getReq(db: Knex) {
     return db(this.dbName);

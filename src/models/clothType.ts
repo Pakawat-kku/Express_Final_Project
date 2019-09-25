@@ -7,4 +7,9 @@ export class ClothTypeModel {
     return db(this.dbName);
   }
 
+  search(db: Knex, cTypeId) {
+    return db(this.dbName)
+    .where('cTypeId', cTypeId);
+  }
+
 }

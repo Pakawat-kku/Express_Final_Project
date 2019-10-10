@@ -1,7 +1,7 @@
 import * as Knex from 'knex';
 
 export class ClothModel {
-  dbName = 'cloth';
+  dbName = 'Cloth';
 
   get(db: Knex) {
     return db(this.dbName);
@@ -10,7 +10,7 @@ export class ClothModel {
   update(db: Knex, data) {
     return db(this.dbName)
     .update(data)
-    .where('cId', data.cId)
+    .where('clothId', data.clothId)
   }
 
   insert(db: Knex, data) {

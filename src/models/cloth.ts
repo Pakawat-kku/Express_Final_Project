@@ -20,7 +20,7 @@ export class ClothModel {
 
   getStock(db: Knex) {
      return db(this.dbName)
-     .innerJoin ( 'clothType' , 'cloth.cTypeId'  , 'clothType.cTypeId');
+     .innerJoin ( 'ClothType' , 'Cloth.ClothType_clothTypeId'  , 'ClothType.clothTypeId');
     //  .select(
     //   'cloth.cName', 
     //   'cTypeId.cTypeName'

@@ -7,4 +7,9 @@ export class ReqModel {
     return db(this.dbName);
   }
 
+  insertReq(db:Knex, data) {
+    return db('requisition')
+    .insert(data);
+  }
+
 }

@@ -25,4 +25,17 @@ router.get('/stock', async (req: Request, res: Response) => {
   }
 });
 
+router.post('/insertReq', async (req: Request, res: Response) => {
+  let db = req.db;
+    const data = req.body.data;
+    try {
+        const result: any = await reqModel.insertReq(db,data);
+                
+        res.send({ok: true, statusCode: HttpStatus.OK, rows: result});
+
+    } catch (err) {
+        res.send({ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message});
+    }
+});
+
 export default router;

@@ -27,9 +27,9 @@ router.get('/', async (req: Request, res: Response) => {
 
 router.get('/search', async (req: Request, res: Response) => {
   let db = req.db;
-  const cTypeId = req.query.cTypeId;
+  const clothTypeId = req.query.clothTypeId;
   try {
-    const result = await clothTypeModel.search(db, cTypeId);
+    const result = await clothTypeModel.search(db, clothTypeId);
     res.send({ ok: true, statusCode: HttpStatus.OK, rows: result});
   } catch (error) {
     console.log(error.message);

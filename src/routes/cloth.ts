@@ -10,21 +10,6 @@ const router: Router = Router();
 
 const clothModel = new ClothModel();
 
-router.get('/', async (req: Request, res: Response) => {
-  let db = req.db;
-  try {
-    const result = await clothModel.get(db);
-    res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
-  } catch (error) {
-    console.log(error.message);
-    res.send({
-      ok: false,
-      statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
-      message: error.message
-    });
-  }
-});
-
 router.post('/', async (req: Request, res: Response) => {
   let db = req.db;
   let data = req.body.data;
@@ -57,7 +42,7 @@ router.post('/update', async (req: Request, res: Response) => {
   }
 });
 
-router.get('/stock', async (req: Request, res: Response) => {
+router.get('/', async (req: Request, res: Response) => {
   let db = req.db;
   try {
     const result = await clothModel.getStock(db);
@@ -71,6 +56,22 @@ router.get('/stock', async (req: Request, res: Response) => {
     });
   }
 
+});
+
+router.post('/search', async (req: Request, res: Response) => {
+  let db = req.db;
+  let search = req.body.search;
+  try {
+    const result = await clothModel.getSearch(db,search);
+    res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+  } catch (error) {
+    console.log(error.message);
+    res.send({
+      ok: false,
+      statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+      message: error.message
+    });
+  }
 });
 
 export default router;

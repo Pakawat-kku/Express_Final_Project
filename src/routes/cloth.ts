@@ -58,4 +58,20 @@ router.get('/', async (req: Request, res: Response) => {
 
 });
 
+router.post('/search', async (req: Request, res: Response) => {
+  let db = req.db;
+  let search = req.body.search;
+  try {
+    const result = await clothModel.getSearch(db,search);
+    res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+  } catch (error) {
+    console.log(error.message);
+    res.send({
+      ok: false,
+      statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+      message: error.message
+    });
+  }
+});
+
 export default router;

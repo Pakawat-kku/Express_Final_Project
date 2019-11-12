@@ -22,6 +22,8 @@ import requestRoute from './routes/request';
 import reqRoute from './routes/req';
 import clothTypeRoute from './routes/clothType';
 import clothRoute from './routes/cloth';
+import purchaseRoute from './routes/purchase';
+import purchaseDetailRoute from './routes/purchaseDetail';
 
 
 // Assign router to the express.Router() instance
@@ -102,6 +104,8 @@ app.use('/api', checkAuth, requestRoute);
 app.use('/req', reqRoute);
 app.use('/clothType', clothTypeRoute);
 app.use('/cloth', clothRoute);
+app.use('/purchase', purchaseRoute);
+app.use('/purchaseDetail', purchaseDetailRoute);
 app.use('/', indexRoute);
 
 //error handlers

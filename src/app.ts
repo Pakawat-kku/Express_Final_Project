@@ -22,7 +22,7 @@ import requestRoute from './routes/request';
 import reqRoute from './routes/req';
 import clothTypeRoute from './routes/clothType';
 import clothRoute from './routes/cloth';
-
+import usersRoute from './routes/users';
 
 // Assign router to the express.Router() instance
 const app: express.Application = express();
@@ -102,6 +102,7 @@ app.use('/api', checkAuth, requestRoute);
 app.use('/req', reqRoute);
 app.use('/clothType', clothTypeRoute);
 app.use('/cloth', clothRoute);
+app.use('/users', usersRoute);
 app.use('/', indexRoute);
 
 //error handlers

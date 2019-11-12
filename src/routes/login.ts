@@ -31,6 +31,7 @@ router.post('/login', async (req: Request, res: Response) => {
         // fullname: `${rs[0].firstName} ${rs[0].lastName}`,
         // firstName: rs[0].firstName,
         // lastName: rs[0].lastName,
+        username: rs[0].username,
         Ward_wardId: rs[0].Ward_wardId,
         userId: rs[0].userId,
         position: rs[0].Position_pId

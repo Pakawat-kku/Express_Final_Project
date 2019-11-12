@@ -14,7 +14,7 @@ const jwt = new Jwt();
 
 const router: Router = Router();
 
-router.post('/customer', async (req: Request, res: Response) => {
+router.post('/login', async (req: Request, res: Response) => {
   let username: string = req.body.username;
   let password: string = req.body.password;
 
@@ -22,17 +22,28 @@ router.post('/customer', async (req: Request, res: Response) => {
 
   try {
     let encPassword = crypto.createHash('md5').update(password).digest('hex');
-    let rs: any = await loginModel.login(db, username, encPassword);
+    // let rs: any = await loginModel.login(db, username, encPassword);
+    let rs: any = await loginModel.login(db, username, password);
 
     if (rs.length) {
 
       let payload = {
-        fullname: `${rs[0].first_name} ${rs[0].last_name}`,
-        id: rs[0].user_id,
+        // fullname: `${rs[0].firstName} ${rs[0].lastName}`,
+        // firstName: rs[0].firstName,
+        // lastName: rs[0].lastName,
+        username: rs[0].username,
+        Ward_wardId: rs[0].Ward_wardId,
+        userId: rs[0].userId,
+        position: rs[0].Position_pId
       }
-
+      console.log('payload', payload);
+      
       let token = jwt.sign(payload);
+      console.log('token', token);
       res.send({ ok: true, token: token, code: HttpStatus.OK });
+
+       
+       
     } else {
       res.send({ ok: false, error: 'Login failed!', code: HttpStatus.UNAUTHORIZED });
     }

@@ -19,8 +19,9 @@ export class ClothModel {
   }
 
   getStock(db: Knex) {
-    return db(this.dbName)
-      .innerJoin('ClothType', 'Cloth.ClothType_clothTypeId', 'ClothType.clothTypeId');
+     return db(this.dbName)
+     .innerJoin ( 'ClothType' , 'Cloth.ClothType_clothTypeId'  , 'ClothType.clothTypeId')
+     .orderBy('clothId', 'ascs');
     //  .select(
     //   'cloth.cName', 
     //   'cTypeId.cTypeName'

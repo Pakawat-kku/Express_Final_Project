@@ -63,6 +63,28 @@ router.get('/showReqWait', async (req: Request, res: Response) => {
   }
 });
 
+router.get('/showReqWaitDetail', async (req: Request, res: Response) => {
+  let db = req.db;
+  const wardId = req.query.wardId;
+  const requisitionCode = req.query.requisitionCode;
+
+  try {
+    const result = await reqModel.showReqWaitDetail(db, wardId, requisitionCode);
+    for (const item of result) {
+      item.reqDate = moment(item.reqDate).format('YYYY-MM-DD HH:mm:ss');
+    }
+
+    res.send({ ok: true, statusCode: HttpStatus.OK, rows: result});
+  } catch (error) {
+    console.log(error.message);
+    res.send({
+      ok: false,
+      statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+      message: error.message
+    });
+  }
+});
+
 router.post('/insertReq', async (req: Request, res: Response) => {
   let db = req.db;
     const data = req.body.data;

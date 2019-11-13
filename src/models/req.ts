@@ -23,14 +23,22 @@ export class ReqModel {
 
   showReqWait(db: Knex, wardId: number) {
     return db('Requisition')
-    // .innerJoin ( 'Users' , 'Users.userId'  , 'Requisition.Users_userId')
     // .innerJoin ( 'RequisitionDetail' ,'RequisitionDetail.Requisition_requisitionCode' ,'Requisition.requisitionCode')
     .where('Requisition.Ward_wardId', wardId)
     .andWhere('Requisition.status', '1')
     .orderBy('Requisition.reqDate', 'desc');
 
+  }
+
+  showReqWaitDetail(db: Knex, wardId: number, requisitionCode) {
+    return db('Requisition')
+   .innerJoin ( 'RequisitionDetail' ,'RequisitionDetail.Requisition_requisitionCode' ,'Requisition.requisitionCode')
+    .where('Requisition.Ward_wardId', wardId)
+    .where('Requisition.requisitionCode', requisitionCode)
+    .andWhere('Requisition.status', '1');
 
   }
+
 
   insertReq(db:Knex, data) {
     return db('RequisitionDetail')

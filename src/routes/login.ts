@@ -34,13 +34,14 @@ router.post('/login', async (req: Request, res: Response) => {
         username: rs[0].username,
         Ward_wardId: rs[0].Ward_wardId,
         userId: rs[0].userId,
-        position: rs[0].Position_pId
+        position: rs[0].Position_pId,
+        wardName: rs[0].wardName,
       }
       console.log('payload', payload);
       
       let token = jwt.sign(payload);
       console.log('token', token);
-      res.send({ ok: true, token: token, code: HttpStatus.OK });
+      res.send({ ok: true, token: token , code: HttpStatus.OK });
 
        
        

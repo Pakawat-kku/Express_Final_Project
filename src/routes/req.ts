@@ -65,11 +65,10 @@ router.get('/showReqWait', async (req: Request, res: Response) => {
 
 router.get('/showReqWaitDetail', async (req: Request, res: Response) => {
   let db = req.db;
-  const wardId = req.query.wardId;
   const requisitionCode = req.query.requisitionCode;
 
   try {
-    const result = await reqModel.showReqWaitDetail(db, wardId, requisitionCode);
+    const result = await reqModel.showReqWaitDetail(db, requisitionCode);
     for (const item of result) {
       item.reqDate = moment(item.reqDate).format('YYYY-MM-DD HH:mm:ss');
     }
@@ -84,6 +83,83 @@ router.get('/showReqWaitDetail', async (req: Request, res: Response) => {
     });
   }
 });
+
+router.get('/showReqWaitDetailOnly', async (req: Request, res: Response) => {
+  let db = req.db;
+  const requisitionCode = req.query.requisitionCode;
+
+  try {
+    const result = await reqModel.showReqWaitDetailOnly(db, requisitionCode);
+    for (const item of result) {
+      item.reqDate = moment(item.reqDate).format('YYYY-MM-DD HH:mm:ss');
+    }
+
+    res.send({ ok: true, statusCode: HttpStatus.OK, rows: result});
+  } catch (error) {
+    console.log(error.message);
+    res.send({
+      ok: false,
+      statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+      message: error.message
+    });
+  }
+});
+
+router.get('/showReqWaitAdmin', async (req: Request, res: Response) => {
+  let db = req.db;
+
+  try {
+    const result = await reqModel.showReqWaitAdmin(db);
+    for (const item of result) {
+      item.reqDate = moment(item.reqDate).format('YYYY-MM-DD HH:mm:ss');
+    }
+
+    res.send({ ok: true, statusCode: HttpStatus.OK, rows: result});
+  } catch (error) {
+    console.log(error.message);
+    res.send({
+      ok: false,
+      statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+      message: error.message
+    });
+  }
+});
+
+router.get('/showReqWaitDetailAdmin', async (req: Request, res: Response) => {
+  let db = req.db;
+  const requisitionCode = req.query.requisitionCode;
+
+  try {
+    const result = await reqModel.showReqWaitDetailAdmin(db , requisitionCode);
+    for (const item of result) {
+      item.reqDate = moment(item.reqDate).format('YYYY-MM-DD HH:mm:ss');
+    }
+
+    res.send({ ok: true, statusCode: HttpStatus.OK, rows: result});
+  } catch (error) {
+    console.log(error.message);
+    res.send({
+      ok: false,
+      statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+      message: error.message
+    });
+  }
+});
+
+router.post('/approveReq', async (req: Request, res: Response) => {
+  let db = req.db;
+    const requisitionCode = req.body.requisitionCode;
+    try {
+        const result: any = await reqModel.approveReq(db,requisitionCode);
+                
+        res.send({ok: true, statusCode: HttpStatus.OK, rows: result});
+
+    } catch (err) {
+        res.send({ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message});
+    }
+});
+
+
 
 router.post('/insertReq', async (req: Request, res: Response) => {
   let db = req.db;

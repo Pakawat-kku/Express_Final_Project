@@ -25,17 +25,46 @@ export class ReqModel {
     return db('Requisition')
     // .innerJoin ( 'RequisitionDetail' ,'RequisitionDetail.Requisition_requisitionCode' ,'Requisition.requisitionCode')
     .where('Requisition.Ward_wardId', wardId)
-    .andWhere('Requisition.status', '1')
+    // .andWhere('Requisition.status', '1')
     .orderBy('Requisition.reqDate', 'desc');
   }
 
-  showReqWaitDetail(db: Knex, wardId: number, requisitionCode) {
-    return db('Requisition')
-   .innerJoin ( 'RequisitionDetail' ,'RequisitionDetail.Requisition_requisitionCode' ,'Requisition.requisitionCode')
-    .where('Requisition.Ward_wardId', wardId)
-    .where('Requisition.requisitionCode', requisitionCode)
-    .andWhere('Requisition.status', '1');
+  showReqWaitDetail(db: Knex, requisitionCode) {
+    return db('RequisitionDetail')
+  //  .innerJoin ( 'RequisitionDetail' ,'RequisitionDetail.Requisition_requisitionCode' ,'Requisition.requisitionCode')
+   .innerJoin ( 'Cloth' , 'Cloth.clothId'  , 'RequisitionDetail.Cloth_clothId')
+    // .where('Requisition.Ward_wardId', wardId)
+    .where('RequisitionDetail.Requisition_requisitionCode', requisitionCode);
+    // .orderBy('Requisition.reqDate', 'desc');
 
+  }
+  
+  showReqWaitDetailOnly(db: Knex, requisitionCode) {
+    return db('Requisition')
+   .innerJoin ( 'Ward' , 'Ward.wardId'  , 'Requisition.Ward_wardId')
+   .where('requisitionCode', requisitionCode);
+  }
+
+  showReqWaitAdmin(db: Knex) {
+    return db('Requisition')
+   .innerJoin ( 'Ward' ,'Ward.wardId' ,'Requisition.Ward_wardId')
+  //  .innerJoin ( 'Cloth' , 'Cloth.clothId'  , 'RequisitionDetail.Cloth_clothId')
+   .where('status', '1')
+   .orderBy('reqDate', 'desc');
+
+  }
+
+  showReqWaitDetailAdmin(db: Knex , requisitionCode : number) {
+    return db('RequisitionDetail')
+    .innerJoin ( 'Cloth' , 'Cloth.clothId'  , 'RequisitionDetail.Cloth_clothId')
+    .where('RequisitionDetail.Requisition_requisitionCode', requisitionCode);
+
+  }
+
+  approveReq(db:Knex, requisitionCode) {
+    return db('Requisition')
+    .update('status', '2')
+    .where('requisitionCode' , requisitionCode);
   }
 
 

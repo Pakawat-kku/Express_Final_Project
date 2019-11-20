@@ -27,7 +27,6 @@ export class ReqModel {
     .where('Requisition.Ward_wardId', wardId)
     .andWhere('Requisition.status', '1')
     .orderBy('Requisition.reqDate', 'desc');
-
   }
 
   showReqWaitDetail(db: Knex, wardId: number, requisitionCode) {
@@ -50,5 +49,16 @@ export class ReqModel {
     .insert(data);
   }
 
+  showReqApprove(db: Knex) {
+    return db('Requisition')
+    .innerJoin ('Ward', 'Ward.wardId', 'Requisition.Ward_wardId')
+    .where('Requisition.status', '2')
+  }
+
+  showReqDetailApprove(db: Knex, requisitionCode) {
+    return db('RequisitionDetail')
+    .innerJoin ( 'Requisition' ,'Requisition.requisitionCode' ,'RequisitionDetail.Requisition_requisitionCode')
+    .andWhere('Requisition_requisitionCode',requisitionCode)
+  }
 
 }

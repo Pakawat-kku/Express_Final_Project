@@ -111,5 +111,37 @@ router.post('/insertRealReq', async (req: Request, res: Response) => {
     }
 });
 
+router.get('/showReqApprove', async (req: Request, res: Response) => {
+  let db = req.db;
+  try {
+    const result = await reqModel.showReqApprove(db);
+    res.send({ ok: true, statusCode: HttpStatus.OK, rows: result});
+  } catch (error) {
+    console.log(error.message);
+    res.send({
+      ok: false,
+      statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+      message: error.message
+    });
+  }
+});
+
+router.post('/showReqDetailApprove', async (req: Request, res: Response) => {
+  let db = req.db;
+  const requisitionCode = req.query.requisitionCode;
+
+  try {
+    const result = await reqModel.showReqDetailApprove(db,requisitionCode);
+    res.send({ ok: true, statusCode: HttpStatus.OK, rows: result});
+  } catch (error) {
+    console.log(error.message);
+    res.send({
+      ok: false,
+      statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+      message: error.message
+    });
+  }
+});
+
 
 export default router;

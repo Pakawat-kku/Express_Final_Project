@@ -79,5 +79,9 @@ export class ReqModel {
     .insert(data);
   }
 
-
+  searchReq(db: Knex, searchWard) {
+    return db('Requisition') 
+    .innerJoin ( 'Ward' , 'Ward.wardId'  , 'Requisition.Ward_wardId')
+    .where('Ward.wardName',"like","%"+searchWard+"%");
+  }
 }

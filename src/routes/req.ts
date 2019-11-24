@@ -63,10 +63,9 @@ router.get('/showReqWait', async (req: Request, res: Response) => {
   }
 });
 
-router.get('/showReqWaitDetail', async (req: Request, res: Response) => {
+router.post('/showReqWaitDetail', async (req: Request, res: Response) => {
   let db = req.db;
-  const requisitionCode = req.query.requisitionCode;
-
+  const requisitionCode = req.body.requisitionCode;
   try {
     const result = await reqModel.showReqWaitDetail(db, requisitionCode);
     for (const item of result) {
@@ -151,6 +150,52 @@ router.post('/approveReq', async (req: Request, res: Response) => {
     const requisitionCode = req.body.requisitionCode;
     try {
         const result: any = await reqModel.approveReq(db,requisitionCode);
+                
+        res.send({ok: true, statusCode: HttpStatus.OK, rows: result});
+
+    } catch (err) {
+        res.send({ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message});
+    }
+});
+
+router.post('/notApproveList', async (req: Request, res: Response) => {
+  let db = req.db;
+    const requisitionCode = req.body.requisitionCode;
+    const clothId = req.body.clothId;
+
+    try {
+        const result: any = await reqModel.notApproveList(db,requisitionCode, clothId);
+                
+        res.send({ok: true, statusCode: HttpStatus.OK, rows: result});
+
+    } catch (err) {
+        res.send({ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message});
+    }
+});
+
+router.post('/notApproveReq', async (req: Request, res: Response) => {
+  let db = req.db;
+    const requisitionCode = req.body.requisitionCode;
+    const clothId = req.body.clothId;
+
+    try {
+        const result: any = await reqModel.notApproveReq(db,requisitionCode);
+                
+        res.send({ok: true, statusCode: HttpStatus.OK, rows: result});
+
+    } catch (err) {
+        res.send({ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message});
+    }
+});
+
+router.post('/editReq', async (req: Request, res: Response) => {
+  let db = req.db;
+    const requisitionCode = req.body.requisitionCode;
+    const clothId = req.body.clothId;
+    const amountCloth = req.body.amountCloth;
+
+    try {
+        const result: any = await reqModel.editReq(db,requisitionCode, clothId, amountCloth);
                 
         res.send({ok: true, statusCode: HttpStatus.OK, rows: result});
 

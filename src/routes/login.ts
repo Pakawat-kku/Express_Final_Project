@@ -29,8 +29,8 @@ router.post('/login', async (req: Request, res: Response) => {
 
       let payload = {
         // fullname: `${rs[0].firstName} ${rs[0].lastName}`,
-        // firstName: rs[0].firstName,
-        // lastName: rs[0].lastName,
+        firstname: rs[0].firstname,
+        lastname: rs[0].lastname,
         username: rs[0].username,
         Ward_wardId: rs[0].Ward_wardId,
         userId: rs[0].userId,

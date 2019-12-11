@@ -232,6 +232,43 @@ router.post('/insertRealReq', async (req: Request, res: Response) => {
     }
 });
 
+router.get('/showReqApprove', async (req: Request, res: Response) => {
+  let db = req.db;
+  try {
+    const result = await reqModel.showReqApprove(db);
+    res.send({ ok: true, statusCode: HttpStatus.OK, rows: result});
+  } catch (error) {
+    console.log(error.message);
+    res.send({
+      ok: false,
+      statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+      message: error.message
+    });
+  }
+});
+
+router.post('/showReqDetailApprove', async (req: Request, res: Response) => {
+  let db = req.db;
+  let requisitionCode = req.body.requisitionCode;
+
+  try {
+    const result = await reqModel.showReqDetailApprove(db,requisitionCode);
+    res.send({ ok: true, statusCode: HttpStatus.OK, rows: result});
+  } catch (error) {
+    console.log(error.message);
+    res.send({
+      ok: false,
+      statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+      message: error.message
+    });
+  }
+});
+
+router.post('/statusWithdraw', async (req: Request, res: Response) => {
+  let db = req.db;
+    const requisitionCode = req.body.requisitionCode;
+    try {
+        const result: any = await reqModel.statusWithdraw(db,requisitionCode);
 router.post('/searchReq', async (req: Request, res: Response) => {
   let db = req.db;
   const searchWard = req.body.searchWard;
@@ -245,6 +282,20 @@ router.post('/searchReq', async (req: Request, res: Response) => {
         res.send({ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message});
     }
 });
+
+router.post('/statusWithdrawSuccess', async (req: Request, res: Response) => {
+  let db = req.db;
+    const requisitionCode = req.body.requisitionCode;
+    try {
+        const result: any = await reqModel.statusWithdrawSuccess(db,requisitionCode);
+                
+        res.send({ok: true, statusCode: HttpStatus.OK, rows: result});
+
+    } catch (err) {
+        res.send({ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message});
+    }
+});
+
 
 
 export default router;

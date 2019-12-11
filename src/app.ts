@@ -22,6 +22,8 @@ import requestRoute from './routes/request';
 import reqRoute from './routes/req';
 import clothTypeRoute from './routes/clothType';
 import clothRoute from './routes/cloth';
+import withdrawRoute from './routes/withdraw';
+import withdrawDetailRoute from './routes/withdrawDetail';
 import purchaseRoute from './routes/purchase';
 import purchaseDetailRoute from './routes/purchaseDetail';
 
@@ -108,6 +110,8 @@ app.use('/cloth', clothRoute);
 app.use('/purchase', purchaseRoute);
 app.use('/purchaseDetail', purchaseDetailRoute);
 app.use('/users', usersRoute);
+app.use('/withdraw', withdrawRoute);
+app.use('/withdrawDetail', withdrawDetailRoute);
 app.use('/', indexRoute);
 
 //error handlers

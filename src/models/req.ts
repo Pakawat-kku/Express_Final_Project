@@ -49,7 +49,7 @@ export class ReqModel {
     return db('Requisition')
    .innerJoin ( 'Ward' ,'Ward.wardId' ,'Requisition.Ward_wardId')
   //  .innerJoin ( 'Cloth' , 'Cloth.clothId'  , 'RequisitionDetail.Cloth_clothId')
-   .where('status', '1')
+   .where('status', '0')
    .orderBy('reqDate', 'desc');
 
   }
@@ -63,10 +63,29 @@ export class ReqModel {
 
   approveReq(db:Knex, requisitionCode) {
     return db('Requisition')
-    .update('status', '2')
+    .update('status', '1')
     .where('requisitionCode' , requisitionCode);
   }
 
+  notApproveList(db:Knex, requisitionCode , clothId) {
+    return db('RequisitionDetail')
+    .update('requisitionDetailStatus', '2')
+    .where('Cloth_clothId' , clothId)
+    .where('Requisition_requisitionCode' , requisitionCode);
+  }
+
+  notApproveReq(db:Knex, requisitionCode) {
+    return db('Requisition')
+    .update('Status', '2')
+    .where('requisitionCode' , requisitionCode);
+  }
+
+  editReq(db:Knex, requisitionCode , clothId, amountCloth) {
+    return db('RequisitionDetail')
+    .update('amountCloth', amountCloth)
+    .where('Cloth_clothId' , clothId)
+    .where('Requisition_requisitionCode' , requisitionCode);
+  }
 
   insertReq(db:Knex, data) {
     return db('RequisitionDetail')
@@ -102,6 +121,11 @@ export class ReqModel {
     return db('Requisition')
     .update('status_withdraw', '2')
     .where('requisitionCode' , requisitionCode);
+  searchReq(db: Knex, searchWard) {
+    return db('Requisition') 
+    .innerJoin ( 'Ward' , 'Ward.wardId'  , 'Requisition.Ward_wardId')
+    .where('Ward.wardName',"like","%"+searchWard+"%")
+    .andWhere('Requisition.status', '1');
   }
 
 }

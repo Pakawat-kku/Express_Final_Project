@@ -7,7 +7,7 @@ export class ReqModel {
     return db('Cloth')
   } 
 
-  //ต้องมองเห็นเฉพราะที่ตัวเองเลือกเมื่อกี้
+  //ต้องมองเห็นเฉพาะที่ตัวเองเลือกเมื่อกี้
   showReq(db: Knex, userId: number) {
     return db('RequisitionDetail')
     .innerJoin ( 'Cloth' , 'Cloth.clothId'  , 'RequisitionDetail.Cloth_clothId')
@@ -82,12 +82,26 @@ export class ReqModel {
     return db('Requisition')
     .innerJoin ('Ward', 'Ward.wardId', 'Requisition.Ward_wardId')
     .where('Requisition.status', '2')
+    .andWhere('status_withdraw','0');
   }
 
   showReqDetailApprove(db: Knex, requisitionCode) {
     return db('RequisitionDetail')
-    .innerJoin ( 'Requisition' ,'Requisition.requisitionCode' ,'RequisitionDetail.Requisition_requisitionCode')
+    // .innerJoin ( 'Requisition' ,'Requisition.requisitionCode' ,'RequisitionDetail.Requisition_requisitionCode')
+    .innerJoin ( 'Cloth' ,'Cloth.clothId' ,'RequisitionDetail.Cloth_clothId')
     .andWhere('Requisition_requisitionCode',requisitionCode)
+  }
+
+  statusWithdraw(db:Knex, requisitionCode) {
+    return db('Requisition')
+    .update('status_withdraw', '1')
+    .where('requisitionCode' , requisitionCode);
+  }
+
+  statusWithdrawSuccess(db:Knex, requisitionCode) {
+    return db('Requisition')
+    .update('status_withdraw', '2')
+    .where('requisitionCode' , requisitionCode);
   }
 
 }

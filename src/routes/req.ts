@@ -204,7 +204,7 @@ router.get('/showReqApprove', async (req: Request, res: Response) => {
 
 router.post('/showReqDetailApprove', async (req: Request, res: Response) => {
   let db = req.db;
-  const requisitionCode = req.query.requisitionCode;
+  let requisitionCode = req.body.requisitionCode;
 
   try {
     const result = await reqModel.showReqDetailApprove(db,requisitionCode);
@@ -218,6 +218,33 @@ router.post('/showReqDetailApprove', async (req: Request, res: Response) => {
     });
   }
 });
+
+router.post('/statusWithdraw', async (req: Request, res: Response) => {
+  let db = req.db;
+    const requisitionCode = req.body.requisitionCode;
+    try {
+        const result: any = await reqModel.statusWithdraw(db,requisitionCode);
+                
+        res.send({ok: true, statusCode: HttpStatus.OK, rows: result});
+
+    } catch (err) {
+        res.send({ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message});
+    }
+});
+
+router.post('/statusWithdrawSuccess', async (req: Request, res: Response) => {
+  let db = req.db;
+    const requisitionCode = req.body.requisitionCode;
+    try {
+        const result: any = await reqModel.statusWithdrawSuccess(db,requisitionCode);
+                
+        res.send({ok: true, statusCode: HttpStatus.OK, rows: result});
+
+    } catch (err) {
+        res.send({ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message});
+    }
+});
+
 
 
 export default router;

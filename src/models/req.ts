@@ -123,11 +123,11 @@ export class ReqModel {
     .where('requisitionCode' , requisitionCode);
   }
   
-  searchReq(db: Knex, searchWard) {
+  searchWard(db: Knex, searchWard) {
     return db('Requisition') 
     .innerJoin ( 'Ward' , 'Ward.wardId'  , 'Requisition.Ward_wardId')
     .where('Ward.wardName',"like","%"+searchWard+"%")
-    .andWhere('Requisition.status', '1');
+    .andWhere('Requisition.status', '0');
   }
 
   searchReqId(db: Knex, requisitionCode) {

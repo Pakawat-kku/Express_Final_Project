@@ -276,12 +276,12 @@ router.post('/statusWithdraw', async (req: Request, res: Response) => {
     }
 });
 
-router.post('/searchReq', async (req: Request, res: Response) => {
+router.post('/searchWard', async (req: Request, res: Response) => {
   let db = req.db;
   const searchWard = req.body.searchWard;
 
     try {
-        const result: any = await reqModel.searchReq(db, searchWard);
+        const result: any = await reqModel.searchWard(db, searchWard);
                 
         res.send({ok: true, statusCode: HttpStatus.OK, rows: result});
 

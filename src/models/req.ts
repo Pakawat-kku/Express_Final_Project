@@ -25,7 +25,7 @@ export class ReqModel {
     return db('Requisition')
     // .innerJoin ( 'RequisitionDetail' ,'RequisitionDetail.Requisition_requisitionCode' ,'Requisition.requisitionCode')
     .where('Requisition.Ward_wardId', wardId)
-    // .andWhere('Requisition.status', '1')
+    .andWhere('Requisition.status', '0')
     .orderBy('Requisition.reqDate', 'desc');
   }
 
@@ -121,11 +121,35 @@ export class ReqModel {
     return db('Requisition')
     .update('status_withdraw', '2')
     .where('requisitionCode' , requisitionCode);
+  }
+  
   searchReq(db: Knex, searchWard) {
     return db('Requisition') 
     .innerJoin ( 'Ward' , 'Ward.wardId'  , 'Requisition.Ward_wardId')
     .where('Ward.wardName',"like","%"+searchWard+"%")
     .andWhere('Requisition.status', '1');
   }
+
+  searchReqId(db: Knex, requisitionCode) {
+    return db('Requisition') 
+    .where('requisitionCode',"like","%"+requisitionCode+"%")
+    
+  }
+
+  searchTypeApprove(db: Knex ,wardId) {
+    return db('Requisition') 
+    .where('Requisition.status', '1')
+    .andWhere('Requisition.Ward_wardId', wardId);
+
+  }
+
+  searchTypeNotApprove(db: Knex ,wardId) {
+    return db('Requisition') 
+    .where('Requisition.status', '2')
+    .andWhere('Requisition.Ward_wardId', wardId);
+
+  }
+
+  
 
 }

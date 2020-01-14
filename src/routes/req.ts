@@ -43,9 +43,9 @@ router.get('/showReq', async (req: Request, res: Response) => {
   }
 });
 
-router.get('/showReqWait', async (req: Request, res: Response) => {
+router.post('/showReqWait', async (req: Request, res: Response) => {
   let db = req.db;
-  const wardId = req.query.wardId;
+  const wardId = req.body.wardId;
   try {
     const result = await reqModel.showReqWait(db, wardId);
     for (const item of result) {
@@ -222,6 +222,8 @@ router.post('/insertReq', async (req: Request, res: Response) => {
 router.post('/insertRealReq', async (req: Request, res: Response) => {
   let db = req.db;
     const data = req.body.data;
+    console.log('data' , data);
+    
     try {
         const result: any = await reqModel.insertRealReq(db,data);
                 
@@ -269,12 +271,61 @@ router.post('/statusWithdraw', async (req: Request, res: Response) => {
     const requisitionCode = req.body.requisitionCode;
     try {
         const result: any = await reqModel.statusWithdraw(db,requisitionCode);
+      } catch (err) {
+        res.send({ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message});
+    }
+});
+
 router.post('/searchReq', async (req: Request, res: Response) => {
   let db = req.db;
   const searchWard = req.body.searchWard;
 
     try {
         const result: any = await reqModel.searchReq(db, searchWard);
+                
+        res.send({ok: true, statusCode: HttpStatus.OK, rows: result});
+
+    } catch (err) {
+        res.send({ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message});
+    }
+});
+
+router.post('/searchReqId', async (req: Request, res: Response) => {
+  let db = req.db;
+  const requisitionCode = req.body.requisitionCode;
+
+    try {
+        const result: any = await reqModel.searchReqId(db, requisitionCode);
+                
+        res.send({ok: true, statusCode: HttpStatus.OK, rows: result});
+
+    } catch (err) {
+        res.send({ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message});
+    }
+});
+
+
+router.post('/searchTypeApprove', async (req: Request, res: Response) => {
+  let db = req.db;
+  const wardId = req.body.wardId;
+
+    try {
+        const result: any = await reqModel.searchTypeApprove(db, wardId);
+                
+        res.send({ok: true, statusCode: HttpStatus.OK, rows: result});
+
+    } catch (err) {
+        res.send({ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message});
+    }
+});
+
+
+router.post('/searchTypeNotApprove', async (req: Request, res: Response) => {
+  let db = req.db;
+  const wardId = req.body.wardId;
+
+    try {
+        const result: any = await reqModel.searchTypeNotApprove(db, wardId);
                 
         res.send({ok: true, statusCode: HttpStatus.OK, rows: result});
 

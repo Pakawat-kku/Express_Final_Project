@@ -17,11 +17,17 @@ import { Router, Request, Response, NextFunction } from 'express';
 import { Jwt } from './models/jwt';
 
 import indexRoute from './routes/index';
+import importClothRoute from './routes/importCloth';
+import importDetailWeightSumRoute from './routes/importDetailWeightSum';
+import importDetailWeightRoute from './routes/importDetailWeight';
 import loginRoute from './routes/login';
 import requestRoute from './routes/request';
 import reqRoute from './routes/req';
 import clothTypeRoute from './routes/clothType';
+import clothTypeImportRoute from './routes/clothTypeImport';
 import clothRoute from './routes/cloth';
+import positionRoute from './routes/position';
+import wardRoute from './routes/ward';
 import withdrawRoute from './routes/withdraw';
 import withdrawDetailRoute from './routes/withdrawDetail';
 import purchaseRoute from './routes/purchase';
@@ -105,12 +111,18 @@ let checkAuth = (req: Request, res: Response, next: NextFunction) => {
 app.use('/login', loginRoute);
 app.use('/api', checkAuth, requestRoute);
 app.use('/req', reqRoute);
+app.use('/importCloth', importClothRoute);
 app.use('/clothType', clothTypeRoute);
+app.use('/clothTypeImport', clothTypeImportRoute);
+app.use('/importDetailWeightSum', importDetailWeightSumRoute);
+app.use('/importDetailWeight', importDetailWeightRoute);
 app.use('/cloth', clothRoute);
 app.use('/purchase', purchaseRoute);
+app.use('/position', positionRoute);
 app.use('/purchaseDetail', purchaseDetailRoute);
 app.use('/users', usersRoute);
 app.use('/withdraw', withdrawRoute);
+app.use('/ward', wardRoute);
 app.use('/withdrawDetail', withdrawDetailRoute);
 app.use('/', indexRoute);
 

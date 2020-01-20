@@ -35,7 +35,9 @@ router.post('/login', async (req: Request, res: Response) => {
         Ward_wardId: rs[0].Ward_wardId,
         userId: rs[0].userId,
         position: rs[0].Position_pId,
+        positionName: rs[0].positionName,
         wardName: rs[0].wardName,
+        status_approve: rs[0].status_approve,
       }
       console.log('payload', payload);
       

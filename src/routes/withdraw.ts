@@ -49,6 +49,18 @@ router.post('/statusWithdraw', async (req: Request, res: Response) => {
     }
 });
 
+router.post('/updateRound', async (req: Request, res: Response) => {
+    let db = req.db;
+    const round = req.body.round;
+    const withdrawId = req.body.withdrawId;
+    try {
+        const result: any = await withdrawModel.updateRound(db, round, withdrawId);
+        res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+    } catch (err) {
+        res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });
+    }
+});
+
 router.post('/getWithdrawByUserId', async (req: Request, res: Response) => {
     let db = req.db;
     const userId = req.body.userId;

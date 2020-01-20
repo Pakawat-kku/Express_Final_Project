@@ -17,7 +17,7 @@ export class WithdrawModel {
 
   statusWithdraw(db: Knex, withdrawId) {
     return db(this.dbName)
-      .update('status_withdraw', '2')
+      .update('status_withdraw', '1')
       .where('withdrawId', withdrawId);
   }
 
@@ -26,6 +26,12 @@ export class WithdrawModel {
       // .innerJoin('WithdrawDetail', 'WithdrawDetail.Withdraw_withdrawId', 'Withdraw.withdrawId')
       .where('Users_userId', userId)
       .groupBy('withdrawCode');
+  }
+
+  updateRound(db: Knex,round, withdrawId) {
+    return db(this.dbName)
+      .update('totalRound', round)
+      .where('withdrawId', withdrawId);
   }
 
 }

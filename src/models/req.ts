@@ -101,7 +101,7 @@ export class ReqModel {
     return db('Requisition')
     .innerJoin ('Ward', 'Ward.wardId', 'Requisition.Ward_wardId')
     .where('Requisition.status', '2')
-    .andWhere('status_withdraw','0');
+    .andWhere('status_withdraw','1');
   }
 
   showReqDetailApprove(db: Knex, requisitionCode) {
@@ -113,14 +113,15 @@ export class ReqModel {
 
   statusWithdraw(db:Knex, requisitionCode) {
     return db('Requisition')
-    .update('status_withdraw', '1')
+    .update('status_withdraw', '2')
     .where('requisitionCode' , requisitionCode);
   }
 
   statusWithdrawSuccess(db:Knex, requisitionCode) {
     return db('Requisition')
-    .update('status_withdraw', '2')
+    .update('status_withdraw', '3')
     .where('requisitionCode' , requisitionCode);
+  }
   searchReq(db: Knex, searchWard) {
     return db('Requisition') 
     .innerJoin ( 'Ward' , 'Ward.wardId'  , 'Requisition.Ward_wardId')

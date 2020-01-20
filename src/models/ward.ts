@@ -7,15 +7,31 @@ export class WardModel {
     return db(this.dbName);
   }
 
-  update(db: Knex, data) {
+
+  getWard(db: Knex) {
+    return db(this.dbName);
+  }
+
+  updateWard(db: Knex, data) {
     return db(this.dbName)
       .update(data)
       .where('wardId', data.wardId)
   }
 
-  insert(db: Knex, data) {
+  insertWard(db: Knex, data) {
     return db(this.dbName)
       .insert(data)
   }
+
+  searchWard(db: Knex, searchWard) {
+    return db(this.dbName) 
+    .where('wardName',"like","%"+searchWard+"%");
+  }
+
+deleteWard(db: Knex, data) {
+  return db(this.dbName) 
+  .del()
+  .where('wardId', data.wardId);
+}
 
 }

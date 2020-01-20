@@ -32,6 +32,9 @@ import withdrawRoute from './routes/withdraw';
 import withdrawDetailRoute from './routes/withdrawDetail';
 import purchaseRoute from './routes/purchase';
 import purchaseDetailRoute from './routes/purchaseDetail';
+import wardRoute from './routes/ward';
+import exportClothRoute from './routes/exportCloth';
+import companyRoute from './routes/company';
 
 import usersRoute from './routes/users';
 
@@ -121,9 +124,12 @@ app.use('/purchase', purchaseRoute);
 app.use('/position', positionRoute);
 app.use('/purchaseDetail', purchaseDetailRoute);
 app.use('/users', usersRoute);
+app.use('/ward', wardRoute);
 app.use('/withdraw', withdrawRoute);
 app.use('/ward', wardRoute);
 app.use('/withdrawDetail', withdrawDetailRoute);
+app.use('/exportCloth', exportClothRoute);
+app.use('/company', companyRoute);
 app.use('/', indexRoute);
 
 //error handlers

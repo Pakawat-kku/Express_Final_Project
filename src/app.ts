@@ -32,7 +32,6 @@ import withdrawRoute from './routes/withdraw';
 import withdrawDetailRoute from './routes/withdrawDetail';
 import purchaseRoute from './routes/purchase';
 import purchaseDetailRoute from './routes/purchaseDetail';
-import wardRoute from './routes/ward';
 import exportClothRoute from './routes/exportCloth';
 import companyRoute from './routes/company';
 

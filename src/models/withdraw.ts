@@ -17,7 +17,7 @@ export class WithdrawModel {
 
   statusWithdraw(db: Knex, withdrawId) {
     return db(this.dbName)
-      .update('status_withdraw', '1')
+      .update('withdraw_status', '1')
       .where('withdrawId', withdrawId);
   }
 

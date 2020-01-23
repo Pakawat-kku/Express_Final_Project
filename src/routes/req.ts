@@ -234,6 +234,21 @@ router.post('/insertRealReq', async (req: Request, res: Response) => {
     }
 });
 
+router.post('/updateAmountReal', async (req: Request, res: Response) => {
+    let db = req.db;
+    const clothId = req.body.clothId;
+    const requisitionCode = req.body.requisitionCode;
+    const amountClothReal = req.body.amountClothReal;    
+    try {
+        const result: any = await reqModel.updateAmountReal(db,clothId, requisitionCode , amountClothReal );
+                
+        res.send({ok: true, statusCode: HttpStatus.OK, rows: result});
+
+    } catch (err) {
+        res.send({ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message});
+    }
+});
+
 router.get('/showReqApprove', async (req: Request, res: Response) => {
   let db = req.db;
   try {

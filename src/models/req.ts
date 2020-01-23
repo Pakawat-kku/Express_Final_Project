@@ -31,11 +31,8 @@ export class ReqModel {
 
   showReqWaitDetail(db: Knex, requisitionCode) {
     return db('RequisitionDetail')
-  //  .innerJoin ( 'RequisitionDetail' ,'RequisitionDetail.Requisition_requisitionCode' ,'Requisition.requisitionCode')
    .innerJoin ( 'Cloth' , 'Cloth.clothId'  , 'RequisitionDetail.Cloth_clothId')
-    // .where('Requisition.Ward_wardId', wardId)
-    .where('RequisitionDetail.Requisition_requisitionCode', requisitionCode);
-    // .orderBy('Requisition.reqDate', 'desc');
+   .where('RequisitionDetail.Requisition_requisitionCode', requisitionCode);
 
   }
   
@@ -97,6 +94,14 @@ export class ReqModel {
     .insert(data);
   }
 
+  updateAmountReal(db:Knex, clothId , requisitionCode , amountClothReal) {
+    return db('RequisitionDetail')
+    .update('amountClothReal' ,amountClothReal)
+    .where('Cloth_clothId', clothId)
+    .andWhere('Requisition_requisitionCode', requisitionCode);
+
+  }
+
   showReqApprove(db: Knex) {
     return db('Requisition')
     .innerJoin ('Ward', 'Ward.wardId', 'Requisition.Ward_wardId')
@@ -139,14 +144,18 @@ export class ReqModel {
   searchTypeApprove(db: Knex ,wardId) {
     return db('Requisition') 
     .where('Requisition.status', '1')
-    .andWhere('Requisition.Ward_wardId', wardId);
+    .andWhere('Requisition.Ward_wardId', wardId)
+    .orderBy('reqDate', 'desc');
+
 
   }
 
   searchTypeNotApprove(db: Knex ,wardId) {
     return db('Requisition') 
     .where('Requisition.status', '2')
-    .andWhere('Requisition.Ward_wardId', wardId);
+    .andWhere('Requisition.Ward_wardId', wardId)
+    .orderBy('reqDate', 'desc');
+
 
   }
 

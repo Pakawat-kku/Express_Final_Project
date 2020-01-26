@@ -4,7 +4,8 @@ export class ClothModel {
   dbName = 'Cloth';
 
   getStock(db: Knex) {
-    return db(this.dbName);
+    return db(this.dbName)
+    .innerJoin('ClothType', 'Cloth.ClothType_clothTypeId', 'ClothType.clothTypeId')
   }
 
   update(db: Knex, data) {

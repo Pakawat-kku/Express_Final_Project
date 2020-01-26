@@ -39,6 +39,22 @@ router.post('/byId', async (req: Request, res: Response) => {
     }
 });
 
+router.post('/byCloth', async (req: Request, res: Response) => {
+    let db = req.db;
+    const Withdraw_withdrawId = req.body.Withdraw_withdrawId;
+    const Cloth_clothId = req.body.Cloth_clothId;
+    const round = req.body.round;
+
+    try {
+        const result: any = await withdrawDetailModel.getByCloth(db, Withdraw_withdrawId,Cloth_clothId, round);
+
+        res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+
+    } catch (err) {
+        res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });
+    }
+});
+
 router.post('/getround', async (req: Request, res: Response) => {
     let db = req.db;
     const Withdraw_withdrawId = req.body.Withdraw_withdrawId;

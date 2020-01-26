@@ -28,10 +28,26 @@ export class WithdrawModel {
       .groupBy('withdrawCode');
   }
 
-  updateRound(db: Knex,round, withdrawId) {
+  updateRound(db: Knex, round, withdrawId) {
     return db(this.dbName)
       .update('totalRound', round)
       .where('withdrawId', withdrawId);
+  }
+
+  searchByDate(db: Knex, dateSearch1, dateSearch2) {
+    return db(this.dbName)
+      .innerJoin('Ward', 'Ward.wardId', 'Withdraw.Ward_wardId')
+      .whereBetween('Withdraw.withdrawDate', [dateSearch1,dateSearch2])
+      .orderBy('withdrawDate','asc');
+      // .groupBy('Ward_wardId');
+  }
+
+  searchByWard(db: Knex,wardId, dateSearch1, dateSearch2) {
+    return db(this.dbName)
+      .innerJoin('Ward', 'Ward.wardId', 'Withdraw.Ward_wardId')
+      .where('Ward_wardId', wardId)
+      .whereBetween('Withdraw.withdrawDate', [dateSearch1,dateSearch2])
+      .orderBy('withdrawDate','asc');
   }
 
 }

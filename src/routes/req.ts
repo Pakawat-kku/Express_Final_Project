@@ -364,4 +364,17 @@ router.post('/statusWithdrawSuccess', async (req: Request, res: Response) => {
   }
 });
 
+router.post('/statusDetailWithdrawSuccess', async (req: Request, res: Response) => {
+  let db = req.db;
+  const id = req.body.id;
+  try {
+    const result: any = await reqModel.updateStatusDetailWithdrawSuccess(db, id);
+
+    res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+
+  } catch (err) {
+    res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });
+  }
+});
+
 export default router;

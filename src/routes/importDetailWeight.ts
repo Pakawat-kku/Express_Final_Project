@@ -58,5 +58,22 @@ router.post('/update', async (req: Request, res: Response) => {
   }
 });
 
+router.post('/showImportDetailWeight', async (req: Request, res: Response) => {
+  let db = req.db;
+  let importCode = req.body.importCode;
+  try {
+    const result = await importDetailWeightModel.showImportDetailWeight(db,importCode);
+    res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+  } catch (error) {
+    console.log(error.message);
+    res.send({
+      ok: false,
+      statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+      message: error.message
+    });
+  }
+});
+
+
 
 export default router;

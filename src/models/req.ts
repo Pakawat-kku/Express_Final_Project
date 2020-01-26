@@ -25,7 +25,7 @@ export class ReqModel {
     return db('Requisition')
     // .innerJoin ( 'RequisitionDetail' ,'RequisitionDetail.Requisition_requisitionCode' ,'Requisition.requisitionCode')
     .where('Requisition.Ward_wardId', wardId)
-    .andWhere('Requisition.status', '1')
+    .andWhere('Requisition.status', '0')
     .orderBy('Requisition.reqDate', 'desc');
   }
 
@@ -46,7 +46,25 @@ export class ReqModel {
     return db('Requisition')
    .innerJoin ( 'Ward' ,'Ward.wardId' ,'Requisition.Ward_wardId')
   //  .innerJoin ( 'Cloth' , 'Cloth.clothId'  , 'RequisitionDetail.Cloth_clothId')
+   .where('status', '0')
+   .orderBy('reqDate', 'desc');
+
+  }
+
+  showReqWaitAdminApprove(db: Knex) {
+    return db('Requisition')
+   .innerJoin ( 'Ward' ,'Ward.wardId' ,'Requisition.Ward_wardId')
+  //  .innerJoin ( 'Cloth' , 'Cloth.clothId'  , 'RequisitionDetail.Cloth_clothId')
    .where('status', '1')
+   .orderBy('reqDate', 'desc');
+
+  }
+
+  showReqWaitAdminNotApprove(db: Knex) {
+    return db('Requisition')
+   .innerJoin ( 'Ward' ,'Ward.wardId' ,'Requisition.Ward_wardId')
+  //  .innerJoin ( 'Cloth' , 'Cloth.clothId'  , 'RequisitionDetail.Cloth_clothId')
+   .where('status', '2')
    .orderBy('reqDate', 'desc');
 
   }

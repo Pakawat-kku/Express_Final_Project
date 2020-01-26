@@ -31,4 +31,16 @@ export class ImportClothModel {
     .where('ImportCode', importCode);
   }
 
+  getInner(db: Knex, Export_exportClothCode){
+    return db(this.dbName)
+    .leftJoin('ImportDetailWeight' , 'ImportDetailWeight.Import_importCode' , 'ImportCloth.ImportCode')
+    .where('Export_exportClothCode', Export_exportClothCode);
+  }
+
+  showImportCloth(db: Knex, exportClothCode){
+    return db(this.dbName)
+    .where('Export_exportClothCode', exportClothCode);
+  }
+
+ 
 }

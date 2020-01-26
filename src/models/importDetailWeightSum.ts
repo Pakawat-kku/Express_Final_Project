@@ -18,4 +18,9 @@ export class ImportDetailWeightSumModel {
       .insert(data)
   }
 
+  showImportDetailWeightSum(db: Knex , importCode) {
+    return db(this.dbName)
+    .where('ImportCloth_importCode', importCode);
+  }
+
 }

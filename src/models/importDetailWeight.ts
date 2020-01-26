@@ -18,4 +18,9 @@ export class ImportDetailWeightModel {
       .insert(data)
   }
 
+  showImportDetailWeight(db: Knex, importCode){
+    return db(this.dbName)
+    .where('Export_exportClothCode', importCode);
+  }
+
 }

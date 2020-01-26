@@ -3,10 +3,19 @@ import * as Knex from 'knex';
 export class ExportClothModel {
   dbName = 'ExportCloth';
 
-  getExportCloth(db: Knex) {
-    return db(this.dbName);
+  getExportClothHos(db: Knex) {
+    return db(this.dbName)
+    // .innerJoin ( 'Company' ,'Company.idCompany' ,'ExportCloth.Company_idCompany')
+    .where('exportClothType', '1')
+    .orderBy('idExportCloth', 'desc');
   }
 
+  getExportClothCompany(db: Knex) {
+    return db(this.dbName)
+    .innerJoin ( 'Company' ,'Company.idCompany' ,'ExportCloth.Company_idCompany')
+    .orderBy('idExportCloth', 'desc');
+  }
+  
   getExportDetail(db: Knex) {
     return db(this.dbName);
   }
@@ -21,17 +30,22 @@ export class ExportClothModel {
       .insert(data)
   }
  
-  showExportCloth(db: Knex, exportClothCode) {
+  showExportClothHospital(db: Knex, exportClothCode) {
     return db(this.dbName)
     // .innerJoin ( 'Requisition' ,'Requisition.requisitionCode' ,'RequisitionDetail.Requisition_requisitionCode')
-    // .innerJoin ( 'Cloth' ,'Cloth.clothId' ,'RequisitionDetail.Cloth_clothId')
-    .where('exportClothCode',exportClothCode)
+    .where('ExportCloth.exportClothCode', exportClothCode);
+  }
+
+  showExportClothCompany(db: Knex, exportClothCode) {
+    return db(this.dbName)
+    // .innerJoin ( 'Requisition' ,'Requisition.requisitionCode' ,'RequisitionDetail.Requisition_requisitionCode')
+    .join('Company' ,'Company.idCompany' ,'ExportCloth.Company_idCompany')
+    .where('ExportCloth.exportClothCode', exportClothCode)
+    
   }
 
   showExportDetail(db: Knex, exportClothCode) {
     return db('ExportDetail')
-    // .innerJoin ( 'Requisition' ,'Requisition.requisitionCode' ,'RequisitionDetail.Requisition_requisitionCode')
-    // .innerJoin ( 'Cloth' ,'Cloth.clothId' ,'RequisitionDetail.Cloth_clothId')
     .where('ExportCloth_exportClothCode',exportClothCode)
   }
 }

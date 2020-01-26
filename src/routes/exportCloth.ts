@@ -10,10 +10,25 @@ const router: Router = Router();
 
 const exportClothModel = new ExportClothModel();
 
-router.get('/exportCloth', async (req: Request, res: Response) => {
+router.get('/getExportClothHos', async (req: Request, res: Response) => {
   let db = req.db;
   try {
-    const result = await exportClothModel.getExportCloth(db);
+    const result = await exportClothModel.getExportClothHos(db);
+    res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+  } catch (error) {
+    console.log(error.message);
+    res.send({
+      ok: false,
+      statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+      message: error.message
+    });
+  }
+});
+
+router.get('/getExportClothCompany', async (req: Request, res: Response) => {
+  let db = req.db;
+  try {
+    const result = await exportClothModel.getExportClothCompany(db);
     res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
   } catch (error) {
     console.log(error.message);
@@ -66,12 +81,29 @@ router.post('/insertExportDetail', async (req: Request, res: Response) => {
     }
 });
 
-router.post('/showExportCloth', async (req: Request, res: Response) => {
+router.post('/showExportClothCompany', async (req: Request, res: Response) => {
   let db = req.db;
   let exportClothCode = req.body.exportClothCode;
-
+  
   try {
-    const result = await exportClothModel.showExportCloth(db,exportClothCode);
+    const result = await exportClothModel.showExportClothCompany(db,exportClothCode);
+    res.send({ ok: true, statusCode: HttpStatus.OK, rows: result});
+  } catch (error) {
+    console.log(error.message);
+    res.send({
+      ok: false,
+      statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+      message: error.message
+    });
+  }
+});
+
+router.post('/showExportClothHospital', async (req: Request, res: Response) => {
+  let db = req.db;
+  let exportClothCode = req.body.exportClothCode;
+  
+  try {
+    const result = await exportClothModel.showExportClothHospital(db,exportClothCode);
     res.send({ ok: true, statusCode: HttpStatus.OK, rows: result});
   } catch (error) {
     console.log(error.message);

@@ -124,6 +124,47 @@ router.get('/showReqWaitAdmin', async (req: Request, res: Response) => {
   }
 });
 
+
+router.get('/showReqWaitAdminApprove', async (req: Request, res: Response) => {
+  let db = req.db;
+
+  try {
+    const result = await reqModel.showReqWaitAdminApprove(db);
+    for (const item of result) {
+      item.reqDate = moment(item.reqDate).format('YYYY-MM-DD HH:mm:ss');
+    }
+
+    res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+  } catch (error) {
+    console.log(error.message);
+    res.send({
+      ok: false,
+      statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+      message: error.message
+    });
+  }
+});
+
+router.get('/showReqWaitAdminNotApprove', async (req: Request, res: Response) => {
+  let db = req.db;
+
+  try {
+    const result = await reqModel.showReqWaitAdminNotApprove(db);
+    for (const item of result) {
+      item.reqDate = moment(item.reqDate).format('YYYY-MM-DD HH:mm:ss');
+    }
+
+    res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+  } catch (error) {
+    console.log(error.message);
+    res.send({
+      ok: false,
+      statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+      message: error.message
+    });
+  }
+});
+
 router.get('/showReqWaitDetailAdmin', async (req: Request, res: Response) => {
   let db = req.db;
   const requisitionCode = req.query.requisitionCode;
@@ -226,6 +267,21 @@ router.post('/insertRealReq', async (req: Request, res: Response) => {
     
     try {
         const result: any = await reqModel.insertRealReq(db,data);
+                
+        res.send({ok: true, statusCode: HttpStatus.OK, rows: result});
+
+    } catch (err) {
+        res.send({ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message});
+    }
+});
+
+router.post('/updateAmountReal', async (req: Request, res: Response) => {
+    let db = req.db;
+    const clothId = req.body.clothId;
+    const requisitionCode = req.body.requisitionCode;
+    const amountClothReal = req.body.amountClothReal;    
+    try {
+        const result: any = await reqModel.updateAmountReal(db,clothId, requisitionCode , amountClothReal );
                 
         res.send({ok: true, statusCode: HttpStatus.OK, rows: result});
 

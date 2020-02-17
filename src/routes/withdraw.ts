@@ -24,6 +24,32 @@ router.post('/', async (req: Request, res: Response) => {
     }
 });
 
+router.get('/off', async (req: Request, res: Response) => {
+    let db = req.db;
+
+    try {
+        const result: any = await withdrawModel.overviewOffline(db);
+        res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+
+    } catch (err) {
+        res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });
+    }
+});
+
+router.post('/changeActiveOff', async (req: Request, res: Response) => {
+    let db = req.db;
+    const withdrawCode = req.body.withdrawCode
+
+    try {
+        const result: any = await withdrawModel.changeActiveOff(db, withdrawCode);
+
+        res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+
+    } catch (err) {
+        res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });
+    }
+});
+
 router.post('/getByCode', async (req: Request, res: Response) => {
     let db = req.db;
     const withdrawCode = req.body.withdrawCode

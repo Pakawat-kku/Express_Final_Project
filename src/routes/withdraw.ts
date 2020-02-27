@@ -24,6 +24,32 @@ router.post('/', async (req: Request, res: Response) => {
     }
 });
 
+router.get('/off', async (req: Request, res: Response) => {
+    let db = req.db;
+
+    try {
+        const result: any = await withdrawModel.overviewOffline(db);
+        res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+
+    } catch (err) {
+        res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });
+    }
+});
+
+router.post('/changeActiveOff', async (req: Request, res: Response) => {
+    let db = req.db;
+    const withdrawCode = req.body.withdrawCode
+
+    try {
+        const result: any = await withdrawModel.changeActiveOff(db, withdrawCode);
+
+        res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+
+    } catch (err) {
+        res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });
+    }
+});
+
 router.post('/getByCode', async (req: Request, res: Response) => {
     let db = req.db;
     const withdrawCode = req.body.withdrawCode
@@ -66,6 +92,31 @@ router.post('/getWithdrawByUserId', async (req: Request, res: Response) => {
     const userId = req.body.userId;
     try {
         const result: any = await withdrawModel.getWithdrawByUserId(db, userId);
+        res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+    } catch (err) {
+        res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });
+    }
+});
+
+router.post('/searchByDate', async (req: Request, res: Response) => {
+    let db = req.db;
+    const dateSearch1 = req.body.dateSearch1;
+    const dateSearch2 = req.body.dateSearch2;
+    try {
+        const result: any = await withdrawModel.searchByDate(db, dateSearch1,dateSearch2);
+        res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+    } catch (err) {
+        res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });
+    }
+});
+
+router.post('/searchByWard', async (req: Request, res: Response) => {
+    let db = req.db;
+    const wardId = req.body.wardId;
+    const dateSearch1 = req.body.dateSearch1;
+    const dateSearch2 = req.body.dateSearch2;
+    try {
+        const result: any = await withdrawModel.searchByWard(db,wardId, dateSearch1,dateSearch2);
         res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
     } catch (err) {
         res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });

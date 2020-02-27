@@ -34,4 +34,9 @@ deleteWard(db: Knex, data) {
   .where('wardId', data.wardId);
 }
 
+printPdfWard(db: Knex) {
+  return db(this.dbName) 
+  }
+
+
 }

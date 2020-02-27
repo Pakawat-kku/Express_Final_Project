@@ -34,7 +34,8 @@ import purchaseRoute from './routes/purchase';
 import purchaseDetailRoute from './routes/purchaseDetail';
 import exportClothRoute from './routes/exportCloth';
 import companyRoute from './routes/company';
-
+import wareHouseRoute from './routes/wareHouse';
+import availableRoute from './routes/available';
 import usersRoute from './routes/users';
 
 // Assign router to the express.Router() instance
@@ -129,6 +130,8 @@ app.use('/ward', wardRoute);
 app.use('/withdrawDetail', withdrawDetailRoute);
 app.use('/exportCloth', exportClothRoute);
 app.use('/company', companyRoute);
+app.use('/wareHouse', wareHouseRoute);
+app.use('/available', availableRoute);
 app.use('/', indexRoute);
 
 //error handlers

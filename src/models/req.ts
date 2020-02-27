@@ -98,6 +98,7 @@ export class ReqModel {
   editReq(db:Knex, requisitionCode , clothId, amountCloth) {
     return db('RequisitionDetail')
     .update('amountCloth', amountCloth)
+    .update('amountClothReal', amountCloth)
     .where('Cloth_clothId' , clothId)
     .where('Requisition_requisitionCode' , requisitionCode);
   }

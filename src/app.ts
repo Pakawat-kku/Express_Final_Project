@@ -24,11 +24,13 @@ import importDetailAmountRoute from './routes/importDetailAmount';
 import loginRoute from './routes/login';
 import requestRoute from './routes/request';
 import reqRoute from './routes/req';
+import authorityRoute from './routes/authority';
 import clothTypeRoute from './routes/clothType';
 import clothTypeImportRoute from './routes/clothTypeImport';
 import clothRoute from './routes/cloth';
 import positionRoute from './routes/position';
 import wardRoute from './routes/ward';
+import users_authorityRoute from './routes/users_authority';
 import repairRoute from './routes/repair';
 import damageRoute from './routes/damage';
 import withdrawRoute from './routes/withdraw';
@@ -37,7 +39,7 @@ import purchaseRoute from './routes/purchase';
 import purchaseDetailRoute from './routes/purchaseDetail';
 import exportClothRoute from './routes/exportCloth';
 import companyRoute from './routes/company';
-
+import pdfRoute from './routes/pdf';
 import usersRoute from './routes/users';
 
 // Assign router to the express.Router() instance
@@ -118,6 +120,7 @@ app.use('/api', checkAuth, requestRoute);
 app.use('/req', reqRoute);
 app.use('/importCloth', importClothRoute);
 app.use('/clothType', clothTypeRoute);
+app.use('/authority', authorityRoute);
 app.use('/clothTypeImport', clothTypeImportRoute);
 app.use('/importDetailWeightSum', importDetailWeightSumRoute);
 app.use('/importDetailWeight', importDetailWeightRoute);
@@ -127,6 +130,7 @@ app.use('/purchase', purchaseRoute);
 app.use('/position', positionRoute);
 app.use('/purchaseDetail', purchaseDetailRoute);
 app.use('/users', usersRoute);
+app.use('/users_authority', users_authorityRoute);
 app.use('/ward', wardRoute);
 app.use('/damage', damageRoute);
 app.use('/repair', repairRoute);
@@ -134,6 +138,7 @@ app.use('/withdraw', withdrawRoute);
 app.use('/withdrawDetail', withdrawDetailRoute);
 app.use('/exportCloth', exportClothRoute);
 app.use('/company', companyRoute);
+app.use('/pdf', pdfRoute);
 app.use('/', indexRoute);
 
 //error handlers

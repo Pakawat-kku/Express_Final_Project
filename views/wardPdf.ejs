@@ -1,0 +1,54 @@
+<html>
+
+<head>
+    <style>
+        body {
+            font-family: 'THSarabun';
+            font-size: 12px;
+            padding: 10px 15px 5px 15px;
+            margin-top: 10px;
+            margin-left: 10px;
+            margin-bottom: 10px;
+            margin-right: 10px;
+        }
+
+        table {
+            font-family: 'Sarabun';
+            font-size: 12px;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th {
+            border-bottom: 1px solid #ddd;
+            border-top: 1px solid #ddd;
+        }
+
+        td,
+        tr {
+            text-align: left;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h2 style="text-align: center;">รายชื่อวอร์ด</h2>
+    <table>
+        <tr>
+            <th>ลำดับ</th>
+            <th>รหัสวอร์ด</th>
+            <th>ชื่อวอร์ด</th>
+        </tr>
+        <% for(let i = 0; i < rows.length; i++) { %>
+        <tr>
+            <td><%= i+1 %>.</td>
+            <td><%= rows[i].wardId %></td>
+            <td><%= rows[i].wardName %></td>
+        </tr>
+        <% } %>
+    </table>
+</body>
+
+</html>

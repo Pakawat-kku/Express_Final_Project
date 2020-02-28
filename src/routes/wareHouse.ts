@@ -14,7 +14,7 @@ router.post('/insertWareHouse', async (req: Request, res: Response) => {
   let db = req.db;
   let data = req.body.data;
   try {
-    const result = await wareHouseModel.insertWareHouse(db,data);
+    const result = await wareHouseModel.insertWarehouse(db,data);
     res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
   } catch (error) {
     console.log(error.message);
@@ -32,7 +32,7 @@ router.post('/updateWareHouse', async (req: Request, res: Response) => {
   let clothId = req.body.clothId;
 
   try {
-    const result = await wareHouseModel.updateWareHouse(db,data, clothId);
+    const result = await wareHouseModel.updateWarehouse(db,data, clothId);
     res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
   } catch (error) {
     console.log(error.message);
@@ -48,7 +48,7 @@ router.post('/', async (req: Request, res: Response) => {
     let db = req.db;
     let clothId = req.body.clothId;
     try {
-      const result = await wareHouseModel.getWareHouse(db,clothId);
+      const result = await wareHouseModel.getWarehouse(db,clothId);
       res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
     } catch (error) {
       console.log(error.message);
@@ -63,7 +63,7 @@ router.post('/', async (req: Request, res: Response) => {
   router.post('/allWareHouse', async (req: Request, res: Response) => {
     let db = req.db;
     try {
-      const result = await wareHouseModel.getAllWareHouse(db);
+      const result = await wareHouseModel.getAllWarehouse(db);
       res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
     } catch (error) {
       console.log(error.message);
@@ -79,7 +79,7 @@ router.post('/search', async (req: Request, res: Response) => {
   let db = req.db;
   let search = req.body.search;
   try {
-    const result = await wareHouseModel.getSearchWareHouse(db,search);
+    const result = await wareHouseModel.getSearchWarehouse(db,search);
     res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
   } catch (error) {
     console.log(error.message);

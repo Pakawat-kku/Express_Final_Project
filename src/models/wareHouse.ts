@@ -1,32 +1,32 @@
 import * as Knex from 'knex';
 
 export class WareHouseModel {
-  dbName = 'WareHouse';
+  dbName = 'Warehouse';
 
-  getWareHouse(db: Knex, clothId) {
+  getWarehouse(db: Knex, clothId) {
     return db(this.dbName)
-    .innerJoin('Cloth','Cloth.clothId' , 'WareHouse.Cloth_clothId')
-    .where('WareHouse.Cloth_clothId', clothId);
+    .innerJoin('Cloth','Cloth.clothId' , 'Warehouse.Cloth_clothId')
+    .where('Warehouse.Cloth_clothId', clothId);
   }
 
-  getAllWareHouse(db: Knex) {
+  getAllWarehouse(db: Knex) {
     return db(this.dbName)
   }
 
-  updateWareHouse(db: Knex, data , clothId) {
+  updateWarehouse(db: Knex, data , clothId) {
     return db(this.dbName)
       .update(data)
       .where('Cloth_clothId', clothId)
   }
 
-  insertWareHouse(db: Knex, data) {
+  insertWarehouse(db: Knex, data) {
     return db(this.dbName)
       .insert(data)
   }
 
-  getSearchWareHouse(db: Knex, search) {
+  getSearchWarehouse(db: Knex, search) {
     return db(this.dbName)
-    .innerJoin('Cloth', 'WareHouse.Cloth_clothId', 'Cloth.clothId')
+    .innerJoin('Cloth', 'Warehouse.Cloth_clothId', 'Cloth.clothId')
     .where('Cloth.clothName',"like","%"+search+"%");
   }
 

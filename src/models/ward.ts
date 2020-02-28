@@ -13,10 +13,16 @@ export class WardModel {
     return db(this.dbName)
   }
 
+  getWardById(db: Knex, userId) {
+    return db(this.dbName) 
+    .where('wardId',userId);
+  }
+
   getWardBlank(db: Knex , userId) {
     return db(this.dbName)
     // .where('Users_userId' , null)
-    .where('Users_userId' , userId);
+    .where('Users_userId' , userId)
+    .orWhere('Users_userId' , null)
   }
 
 

@@ -1,12 +1,12 @@
 import * as Knex from 'knex';
 
 export class WareHouseModel {
-  dbName = 'WareHouse';
+  dbName = 'Warehouse';
 
   getWareHouse(db: Knex, clothId) {
     return db(this.dbName)
-    .innerJoin('Cloth','Cloth.clothId' , 'WareHouse.Cloth_clothId')
-    .where('WareHouse.Cloth_clothId', clothId);
+    .innerJoin('Cloth','Cloth.clothId' , 'Warehouse.Cloth_clothId')
+    .where('Warehouse.Cloth_clothId', clothId);
   }
 
   getAllWareHouse(db: Knex) {
@@ -26,7 +26,7 @@ export class WareHouseModel {
 
   getSearchWareHouse(db: Knex, search) {
     return db(this.dbName)
-    .innerJoin('Cloth', 'WareHouse.Cloth_clothId', 'Cloth.clothId')
+    .innerJoin('Cloth', 'Warehouse.Cloth_clothId', 'Cloth.clothId')
     .where('Cloth.clothName',"like","%"+search+"%");
   }
 

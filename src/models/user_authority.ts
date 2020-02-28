@@ -7,6 +7,12 @@ export class Users_AuthorityModel {
     return db(this.dbName);
   }
 
+  getById(db: Knex, Users_userId) {
+    return db(this.dbName)
+    .innerJoin ('Authority', 'Authority.aId', 'Users_Authority.Authority_aId')
+    .where('Users_userId', Users_userId);
+  }
+
   insert(db: Knex, data) {
     return db(this.dbName)
       .insert(data);
@@ -22,6 +28,13 @@ export class Users_AuthorityModel {
     return db(this.dbName)
     .delete()
     .where('Users_userId', Users_userId);
+  }
+
+  cancelById(db: Knex, Users_userId, Authority_aId) {
+    return db(this.dbName)
+    .delete()
+    .where('Users_userId', Users_userId)
+    .andWhere('Authority_aId',Authority_aId);
   }
 
 }

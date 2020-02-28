@@ -1,4 +1,5 @@
 import * as Knex from 'knex';
+import { join } from 'path';
 
 export class WardModel {
   dbName = 'Ward';
@@ -9,8 +10,15 @@ export class WardModel {
 
 
   getWard(db: Knex) {
-    return db(this.dbName);
+    return db(this.dbName)
   }
+
+  getWardBlank(db: Knex , userId) {
+    return db(this.dbName)
+    // .where('Users_userId' , null)
+    .where('Users_userId' , userId);
+  }
+
 
   updateWard(db: Knex, data) {
     return db(this.dbName)

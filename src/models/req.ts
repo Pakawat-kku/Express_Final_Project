@@ -162,6 +162,7 @@ export class ReqModel {
 
   searchReqId(db: Knex, requisitionCode) {
     return db('Requisition') 
+    .innerJoin ( 'Ward' , 'Ward.wardId'  , 'Requisition.Ward_wardId')
     .where('requisitionCode',"like","%"+requisitionCode+"%")
     
   }

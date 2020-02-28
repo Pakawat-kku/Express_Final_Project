@@ -10,6 +10,12 @@ export class UsersModel {
     .orderBy('status_approve','DESC');
   }
 
+  getUserId(db: Knex, userId) {
+    return db(this.dbName)
+    .where('userId' , userId);
+   
+  }
+
   insertUsers(db: Knex, data) {
     return db(this.dbName)
       .insert(data)

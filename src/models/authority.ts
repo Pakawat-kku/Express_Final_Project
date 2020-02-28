@@ -4,7 +4,7 @@ export class AuthorityModel {
   dbName = 'Authority';
 
   getAuthority(db: Knex) {
-    return db(this.dbName);
+    return db(this.dbName)
   }
 
   insert(db: Knex, data) {

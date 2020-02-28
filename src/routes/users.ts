@@ -69,6 +69,20 @@ router.get('/', async (req: Request, res: Response) => {
     }
   });
 
+  router.post('/getUserId', async (req: Request, res: Response) => {
+    let db = req.db;
+    const userId = req.body.userId;
+    
+      try {
+          const result: any = await usersModel.getUserId(db,userId);
+                  
+          res.send({ok: true, statusCode: HttpStatus.OK, rows: result});
+  
+      } catch (err) {
+          res.send({ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message});
+      }
+  });
+
 router.post('/', async (req: Request, res: Response) => {
   let db = req.db;
   const data = req.body.data;

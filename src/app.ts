@@ -39,6 +39,8 @@ import purchaseRoute from './routes/purchase';
 import purchaseDetailRoute from './routes/purchaseDetail';
 import exportClothRoute from './routes/exportCloth';
 import companyRoute from './routes/company';
+import wareHouseRoute from './routes/wareHouse';
+import availableRoute from './routes/available';
 import pdfRoute from './routes/pdf';
 import usersRoute from './routes/users';
 
@@ -138,6 +140,8 @@ app.use('/withdraw', withdrawRoute);
 app.use('/withdrawDetail', withdrawDetailRoute);
 app.use('/exportCloth', exportClothRoute);
 app.use('/company', companyRoute);
+app.use('/wareHouse', wareHouseRoute);
+app.use('/available', availableRoute);
 app.use('/pdf', pdfRoute);
 app.use('/', indexRoute);
 

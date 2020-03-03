@@ -30,10 +30,10 @@ export class WithdrawModel {
       .where('withdrawCode', withdrawCode);
   }
 
-  statusWithdraw(db: Knex, withdrawId) {
+  statusWithdraw(db: Knex, withdrawCode) {
     return db(this.dbName)
       .update('withdraw_status', '1')
-      .where('withdrawId', withdrawId);
+      .where('withdrawCode', withdrawCode);
   }
 
   getWithdrawByUserId(db: Knex, userId) {
@@ -63,6 +63,14 @@ export class WithdrawModel {
       .where('Ward_wardId', wardId)
       .whereBetween('Withdraw.withdrawDate', [dateSearch1, dateSearch2])
       .orderBy('withdrawDate', 'asc');
+  }
+
+  //new WITHDRAW!!!
+
+  getWithdrawByReq(db: Knex, requisitionCode) {
+    return db(this.dbName)
+      .innerJoin('Ward', 'Ward.wardId', 'Withdraw.Ward_wardId')
+      .where('Requisition_requisitionCode', requisitionCode);
   }
 
 }

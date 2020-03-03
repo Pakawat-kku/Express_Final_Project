@@ -433,4 +433,42 @@ router.post('/statusDetailWithdrawSuccess', async (req: Request, res: Response) 
   }
 });
 
+router.post('/getByWard', async (req: Request, res: Response) => {
+  let db = req.db;
+  const Ward_wardId = req.body.Ward_wardId;
+  try {
+    const result: any = await reqModel.getByWard(db, Ward_wardId);
+
+    res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+
+  } catch (err) {
+    res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });
+  }
+});
+
+router.post('/getByWardStatusWD1', async (req: Request, res: Response) => {
+  let db = req.db;
+  const Ward_wardId = req.body.Ward_wardId;
+  try {
+    const result: any = await reqModel.getByWardStatusWD1(db, Ward_wardId);
+
+    res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+
+  } catch (err) {
+    res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });
+  }
+});
+
+router.post('/getNapkin', async (req: Request, res: Response) => {
+  let db = req.db;
+  try {
+    const result: any = await reqModel.getNapkin(db);
+
+    res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+
+  } catch (err) {
+    res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });
+  }
+});
+
 export default router;

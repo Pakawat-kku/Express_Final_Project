@@ -74,7 +74,6 @@ router.post('/insertWard', async (req: Request, res: Response) => {
       statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
       message: error.message
     });
-    
   }
 });
 
@@ -113,6 +112,22 @@ router.post('/deleteWard', async (req: Request, res: Response) => {
   let data = req.body.data;
   try {
     const result = await wardModel.deleteWard(db,data);
+    res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+  } catch (error) {
+    console.log(error.message);
+    res.send({
+      ok: false,
+      statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+      message: error.message
+    });
+  }
+});
+
+router.post('/getPorter', async (req: Request, res: Response) => {
+  let db = req.db;
+  let Users_userId = req.body.Users_userId;
+  try {
+    const result = await wardModel.getPorter(db,Users_userId);
     res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
   } catch (error) {
     console.log(error.message);

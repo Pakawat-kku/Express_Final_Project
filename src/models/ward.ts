@@ -14,15 +14,15 @@ export class WardModel {
   }
 
   getWardById(db: Knex, userId) {
-    return db(this.dbName) 
-    .where('wardId',userId);
+    return db(this.dbName)
+      .where('wardId', userId);
   }
 
-  getWardBlank(db: Knex , userId) {
+  getWardBlank(db: Knex, userId) {
     return db(this.dbName)
-    // .where('Users_userId' , null)
-    .where('Users_userId' , userId)
-    .orWhere('Users_userId' , null)
+      // .where('Users_userId' , null)
+      .where('Users_userId', userId)
+      .orWhere('Users_userId', null)
   }
 
 
@@ -38,19 +38,23 @@ export class WardModel {
   }
 
   searchWard(db: Knex, searchWard) {
-    return db(this.dbName) 
-    .where('wardName',"like","%"+searchWard+"%");
+    return db(this.dbName)
+      .where('wardName', "like", "%" + searchWard + "%");
   }
 
-deleteWard(db: Knex, data) {
-  return db(this.dbName) 
-  .del()
-  .where('wardId', data.wardId);
-}
-
-printPdfWard(db: Knex) {
-  return db(this.dbName) 
+  deleteWard(db: Knex, data) {
+    return db(this.dbName)
+      .del()
+      .where('wardId', data.wardId);
   }
 
+  printPdfWard(db: Knex) {
+    return db(this.dbName)
+  }
+
+  getPorter(db: Knex, Users_userId) {
+    return db(this.dbName)
+      .where('Users_userId', Users_userId)
+  }
 
 }

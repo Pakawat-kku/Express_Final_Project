@@ -36,4 +36,17 @@ export class WithdrawDetailModel {
     .where('Withdraw_withdrawId',Withdraw_withdrawId)
   }
 
+  getByCode(db: Knex, Withdraw_withdrawCode){
+    return db(this.dbName)
+    .innerJoin ( 'Cloth' ,'Cloth.clothId' ,'WithdrawDetail.Cloth_clothId')
+    .where('Withdraw_withdrawCode',Withdraw_withdrawCode);
+  }
+
+  getRoundByCode(db: Knex, Withdraw_withdrawCode, round){
+    return db(this.dbName)
+    .innerJoin ( 'Cloth' ,'Cloth.clothId' ,'WithdrawDetail.Cloth_clothId')
+    .where('Withdraw_withdrawCode',Withdraw_withdrawCode)
+    .where('round', round);
+  }
+
 }

@@ -80,4 +80,33 @@ router.post('/getWithdrawByUserId', async (req: Request, res: Response) => {
     }
 });
 
+router.post('/byCode', async (req: Request, res: Response) => {
+    let db = req.db;
+    const Withdraw_withdrawCode = req.body.Withdraw_withdrawCode;
+
+    try {
+        const result: any = await withdrawDetailModel.getByCode(db, Withdraw_withdrawCode);
+
+        res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+
+    } catch (err) {
+        res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });
+    }
+});
+
+router.post('/roundByCode', async (req: Request, res: Response) => {
+    let db = req.db;
+    const Withdraw_withdrawCode = req.body.Withdraw_withdrawCode;
+    const round = req.body.round;
+
+    try {
+        const result: any = await withdrawDetailModel.getRoundByCode(db, Withdraw_withdrawCode, round);
+
+        res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+
+    } catch (err) {
+        res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });
+    }
+});
+
 export default router;

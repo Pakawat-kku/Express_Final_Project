@@ -1,7 +1,7 @@
 import * as Knex from 'knex';
 
 export class ReqModel {
-  dbName = 'employee';
+  dbName = 'Requisition';
 
   getStock(db: Knex) {
     return db('Cloth')
@@ -185,6 +185,33 @@ export class ReqModel {
 
   }
 
-  
+  //overview-withdraw NEW!!!
+
+  getByWard(db: Knex, Ward_wardId){
+    return db(this.dbName)
+    .innerJoin ( 'Ward' , 'Ward.wardId'  , 'Requisition.Ward_wardId')
+    .where('status','1')
+    .andWhere('status_withdraw','0')
+    .andWhere('Ward_wardId',Ward_wardId);
+  }
+
+  getByWardStatusWD1(db: Knex, Ward_wardId){
+    return db(this.dbName)
+    .innerJoin ( 'Ward' , 'Ward.wardId'  , 'Requisition.Ward_wardId')
+    .where('status','1')
+    .andWhere('status_withdraw','1')
+    .andWhere('Ward_wardId',Ward_wardId);
+  }
+
+  //get ผ้าเช็ดมือ
+  getNapkin(db: Knex){
+    return db('RequisitionDetail')
+    .innerJoin ( 'Cloth' ,'Cloth.clothId' ,'RequisitionDetail.Cloth_clothId')
+    .innerJoin ( 'Requisition' ,'Requisition.requisitionCode' ,'RequisitionDetail.Requisition_requisitionCode')
+    .innerJoin ( 'Ward' , 'Ward.wardId'  , 'Requisition.Ward_wardId')
+    .where('Requisition.status','1')
+    .andWhere('Requisition.status_withdraw','0')
+    .andWhere('Cloth.clothName','ผ้าเช็ดมือ');
+  }
 
 }

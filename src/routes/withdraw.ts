@@ -66,9 +66,9 @@ router.post('/getByCode', async (req: Request, res: Response) => {
 
 router.post('/statusWithdraw', async (req: Request, res: Response) => {
     let db = req.db;
-    const withdrawId = req.body.withdrawId;
+    const withdrawCode = req.body.withdrawCode;
     try {
-        const result: any = await withdrawModel.statusWithdraw(db, withdrawId);
+        const result: any = await withdrawModel.statusWithdraw(db, withdrawCode);
         res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
     } catch (err) {
         res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });
@@ -118,6 +118,20 @@ router.post('/searchByWard', async (req: Request, res: Response) => {
     try {
         const result: any = await withdrawModel.searchByWard(db,wardId, dateSearch1,dateSearch2);
         res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+    } catch (err) {
+        res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });
+    }
+});
+
+router.post('/getByReq', async (req: Request, res: Response) => {
+    let db = req.db;
+    const requisitionCode = req.body.requisitionCode
+
+    try {
+        const result: any = await withdrawModel.getWithdrawByReq(db, requisitionCode);
+
+        res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+
     } catch (err) {
         res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });
     }

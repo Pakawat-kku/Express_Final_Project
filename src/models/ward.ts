@@ -8,7 +8,6 @@ export class WardModel {
     return db(this.dbName);
   }
 
-
   getWard(db: Knex) {
     return db(this.dbName)
   }

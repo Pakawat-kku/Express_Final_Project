@@ -43,6 +43,10 @@ import wareHouseRoute from './routes/wareHouse';
 import availableRoute from './routes/available';
 import pdfRoute from './routes/pdf';
 import usersRoute from './routes/users';
+import warehouse_export_availableRoute from './routes/Warehouse_export_available';
+import warehouse_export_availableDetailRoute from './routes/warehouse_export_availableDetail';
+
+
 
 // Assign router to the express.Router() instance
 const app: express.Application = express();
@@ -142,6 +146,10 @@ app.use('/exportCloth', exportClothRoute);
 app.use('/company', companyRoute);
 app.use('/wareHouse', wareHouseRoute);
 app.use('/available', availableRoute);
+app.use('/warehouse_export_available', warehouse_export_availableRoute);
+app.use('/warehouse_export_availableDetail', warehouse_export_availableDetailRoute);
+
+
 app.use('/pdf', pdfRoute);
 app.use('/', indexRoute);
 

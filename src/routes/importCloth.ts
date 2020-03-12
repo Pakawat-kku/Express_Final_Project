@@ -59,6 +59,23 @@ router.post('/by', async (req: Request, res: Response) => {
   }
 });
 
+router.post('/getImportClothWhereCompany', async (req: Request, res: Response) => {
+  let db = req.db;
+  let companyId = req.body.companyId;
+
+  try {
+    const result = await importClothModel.getImportClothWhereCompany(db, companyId);
+    res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+  } catch (error) {
+    console.log(error.message);
+    res.send({
+      ok: false,
+      statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+      message: error.message
+    });
+  }
+});
+
 router.post('/getInner', async (req: Request, res: Response) => {
   let db = req.db;
   let Export_exportClothCode = req.body.Export_exportClothCode;

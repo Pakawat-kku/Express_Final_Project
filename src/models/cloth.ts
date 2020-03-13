@@ -25,4 +25,10 @@ export class ClothModel {
     .where('Cloth.clothName',"like","%"+search+"%");
   }
 
+  getClothById(db: Knex, clothId) {
+    return db(this.dbName)
+    // .innerJoin('ClothType', 'Cloth.ClothType_clothTypeId', 'ClothType.clothTypeId')
+    .where('clothId', clothId);
+  }
+
 }

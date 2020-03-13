@@ -511,4 +511,52 @@ router.post('/getReqNapkin', async (req: Request, res: Response) => {
   }
 });
 
+
+router.post('/searchByDate', async (req: Request, res: Response) => {
+  let db = req.db;
+  const dateSearch1 = req.body.dateSearch1;
+  const dateSearch2 = req.body.dateSearch2;
+  try {
+      const result: any = await reqModel.searchByDate(db, dateSearch1,dateSearch2);
+      res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+  } catch (err) {
+      res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });
+  }
+});
+
+router.post('/searchByDateGroupbyWard', async (req: Request, res: Response) => {
+  let db = req.db;
+  const dateSearch1 = req.body.dateSearch1;
+  const dateSearch2 = req.body.dateSearch2;
+  try {
+      const result: any = await reqModel.searchByDateGroupbyWard(db, dateSearch1,dateSearch2);
+      res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+  } catch (err) {
+      res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });
+  }
+});
+
+router.post('/searchByDateAmount', async (req: Request, res: Response) => {
+  let db = req.db;
+  const requisitionCode = req.body.requisitionCode;
+  try {
+      const result: any = await reqModel.searchByDateAmount(db, requisitionCode);
+      res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+  } catch (err) {
+      res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });
+  }
+});
+
+router.post('/searchByWard', async (req: Request, res: Response) => {
+  let db = req.db;
+  const wardId = req.body.wardId;
+  const dateSearch1 = req.body.dateSearch1;
+  const dateSearch2 = req.body.dateSearch2;
+  try {
+      const result: any = await reqModel.searchByWard(db,wardId, dateSearch1,dateSearch2);
+      res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+  } catch (err) {
+      res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });
+  }
+});
 export default router;

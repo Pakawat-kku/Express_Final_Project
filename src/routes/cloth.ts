@@ -74,4 +74,21 @@ router.post('/search', async (req: Request, res: Response) => {
   }
 });
 
+
+router.post('/getClothById', async (req: Request, res: Response) => {
+  let db = req.db;
+  let clothId = req.body.clothId;
+  try {
+    const result = await clothModel.getClothById(db,clothId);
+    res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+  } catch (error) {
+    console.log(error.message);
+    res.send({
+      ok: false,
+      statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+      message: error.message
+    });
+  }
+});
+
 export default router;

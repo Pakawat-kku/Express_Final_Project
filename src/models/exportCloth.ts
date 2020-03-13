@@ -32,8 +32,7 @@ export class ExportClothModel {
  
   showExportClothHospital(db: Knex, exportClothCode) {
     return db(this.dbName)
-    // .innerJoin ( 'Requisition' ,'Requisition.requisitionCode' ,'RequisitionDetail.Requisition_requisitionCode')
-    .where('ExportCloth.exportClothCode', exportClothCode);
+    .where('exportClothCode', exportClothCode);
   }
 
   showExportClothCompany(db: Knex, exportClothCode) {

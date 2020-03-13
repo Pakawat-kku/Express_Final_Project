@@ -45,6 +45,7 @@ import pdfRoute from './routes/pdf';
 import usersRoute from './routes/users';
 import warehouse_export_availableRoute from './routes/warehouse_export_available';
 import warehouse_export_availableDetailRoute from './routes/warehouse_export_availableDetail';
+import weightRoute from './routes/weight';
 
 
 
@@ -148,6 +149,7 @@ app.use('/wareHouse', wareHouseRoute);
 app.use('/available', availableRoute);
 app.use('/warehouse_export_available', warehouse_export_availableRoute);
 app.use('/warehouse_export_availableDetail', warehouse_export_availableDetailRoute);
+app.use('/weight', weightRoute);
 
 
 app.use('/pdf', pdfRoute);

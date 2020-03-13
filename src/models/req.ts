@@ -227,4 +227,41 @@ export class ReqModel {
     .where('Requisition.requisitionCode',requisitionCode)
   }
 
+  searchByDate(db: Knex, dateSearch1, dateSearch2) {
+    return db(this.dbName)
+      .innerJoin('Ward', 'Ward.wardId', 'Requisition.Ward_wardId')
+      .innerJoin('RequisitionDetail', 'RequisitionDetail.Requisition_requisitionCode', 'Requisition.requisitionCode')
+      .where('Requisition.status', '1')
+      .whereBetween('Requisition.reqDate', [dateSearch1, dateSearch2])
+      .orderBy('Ward.wardId', 'asc')
+      // .groupBy('Requisition.Ward_wardId');
+  }
+
+  searchByDateGroupbyWard(db: Knex, dateSearch1, dateSearch2) {
+    return db(this.dbName)
+      .innerJoin('Ward', 'Ward.wardId', 'Requisition.Ward_wardId')
+      .where('Requisition.status', '1')
+      .whereBetween('Requisition.reqDate', [dateSearch1, dateSearch2])
+      .orderBy('Ward.wardId', 'asc')
+      .groupBy('Requisition.Ward_wardId');
+  }
+
+  searchByDateAmount(db: Knex, requisitionCode	) {
+    return db('RequisitionDetail')
+      // .innerJoin('Ward', 'Ward.wardId', 'Requisition.Ward_wardId')
+      .where('Requisition_requisitionCode', requisitionCode)
+      // .orderBy('Ward.wardId', 'asc')
+      // .groupBy('Requisition.Ward_wardId');
+  }
+
+  searchByWard(db: Knex, wardId, dateSearch1, dateSearch2) {
+    return db(this.dbName)
+      .innerJoin('Ward', 'Ward.wardId', 'Requisition.Ward_wardId')
+      .innerJoin('RequisitionDetail', 'RequisitionDetail.Requisition_requisitionCode', 'Requisition.requisitionCode')
+      .where('Requisition.status', '1')
+      .where('Ward_wardId', wardId)
+      // .sum('RequisitionDetail.amountClothReal')
+      .whereBetween('Requisition.reqDate', [dateSearch1, dateSearch2])
+      .orderBy('reqDate', 'asc');
+  }
 }

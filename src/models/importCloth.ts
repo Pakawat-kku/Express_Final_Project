@@ -25,6 +25,11 @@ export class ImportClothModel {
     .where('ImportCode', importCode);
   }
 
+  getImportClothWhereCompany(db: Knex, companyId){
+    return db(this.dbName)
+    .where('Company_idCompany', companyId);
+  }
+
   getBy(db: Knex, importCode){
     return db(this.dbName)
     .leftJoin('ImportDetailWeight' , 'ImportDetailWeight.Import_importCode' , 'ImportCloth.ImportCode')

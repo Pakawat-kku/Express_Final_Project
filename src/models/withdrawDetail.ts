@@ -11,21 +11,21 @@ export class WithdrawDetailModel {
   getById(db: Knex, Withdraw_withdrawId, round){
     return db(this.dbName)
     .innerJoin ( 'Cloth' ,'Cloth.clothId' ,'WithdrawDetail.Cloth_clothId')
-    .where('Withdraw_withdrawId',Withdraw_withdrawId)
+    .where('Withdraw_withdrawCode',Withdraw_withdrawId)
     .where('round', round);
   }
 
   getByCloth(db: Knex, Withdraw_withdrawId, Cloth_clothId, round){
     return db(this.dbName)
     .innerJoin ( 'Cloth' ,'Cloth.clothId' ,'WithdrawDetail.Cloth_clothId')
-    .where('Withdraw_withdrawId',Withdraw_withdrawId)
+    .where('Withdraw_withdrawCode',Withdraw_withdrawId)
     .where('Cloth_clothId', Cloth_clothId)
     .where('round', round);
   }
 
   getWithdrawByUserId(db: Knex, userId) {
     return db(this.dbName)
-      .innerJoin('Withdraw', 'Withdraw.withdrawId', 'WithdrawDetail.Withdraw_withdrawId')
+      .innerJoin('Withdraw', 'Withdraw.withdrawCode', 'WithdrawDetail.Withdraw_withdrawCode')
       .where('Users_userId', userId)
       .groupBy('withdrawCode');
   }
@@ -33,7 +33,7 @@ export class WithdrawDetailModel {
   getRound(db: Knex, Withdraw_withdrawId, ){
     return db(this.dbName)
     .innerJoin ( 'Cloth' ,'Cloth.clothId' ,'WithdrawDetail.Cloth_clothId')
-    .where('Withdraw_withdrawId',Withdraw_withdrawId)
+    .where('Withdraw_withdrawCode',Withdraw_withdrawId)
   }
 
   getByCode(db: Knex, Withdraw_withdrawCode){
@@ -47,6 +47,12 @@ export class WithdrawDetailModel {
     .innerJoin ( 'Cloth' ,'Cloth.clothId' ,'WithdrawDetail.Cloth_clothId')
     .where('Withdraw_withdrawCode',Withdraw_withdrawCode)
     .where('round', round);
+  }
+
+  getRoundByCodeUser(db: Knex, Withdraw_withdrawCode){
+    return db(this.dbName)
+    .innerJoin ( 'Cloth' ,'Cloth.clothId' ,'WithdrawDetail.Cloth_clothId')
+    .where('Withdraw_withdrawCode',Withdraw_withdrawCode)
   }
 
 }

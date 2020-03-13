@@ -24,6 +24,19 @@ router.post('/', async (req: Request, res: Response) => {
     }
 });
 
+router.get('/', async (req: Request, res: Response) => {
+    let db = req.db;
+
+    try {
+        const result: any = await withdrawModel.getWithdraw(db);
+
+        res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+
+    } catch (err) {
+        res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });
+    }
+});
+
 router.get('/off', async (req: Request, res: Response) => {
     let db = req.db;
 
@@ -56,6 +69,21 @@ router.post('/getByCode', async (req: Request, res: Response) => {
 
     try {
         const result: any = await withdrawModel.getWithdrawByCode(db, withdrawCode);
+
+        res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+
+    } catch (err) {
+        res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });
+    }
+});
+
+router.post('/checkMonth', async (req: Request, res: Response) => {
+    let db = req.db;
+    const date1 = req.body.date1;
+    const date2 = req.body.date2;
+
+    try {
+        const result: any = await withdrawModel.checkPerMonth(db, date1, date2);
 
         res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
 
@@ -129,6 +157,32 @@ router.post('/getByReq', async (req: Request, res: Response) => {
 
     try {
         const result: any = await withdrawModel.getWithdrawByReq(db, requisitionCode);
+
+        res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+
+    } catch (err) {
+        res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });
+    }
+});
+
+router.post('/updateRoundCode', async (req: Request, res: Response) => {
+    let db = req.db;
+    const round = req.body.round;
+    const withdrawCode = req.body.withdrawCode;
+    try {
+        const result: any = await withdrawModel.updateRoundCode(db, round, withdrawCode);
+        res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+    } catch (err) {
+        res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });
+    }
+});
+
+router.post('/getByCodeNapkin', async (req: Request, res: Response) => {
+    let db = req.db;
+    const withdrawCode = req.body.withdrawCode
+
+    try {
+        const result: any = await withdrawModel.getWithdrawByCodeNapkin(db, withdrawCode);
 
         res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
 

@@ -7,4 +7,14 @@ export class CompanyModel {
     return db(this.dbName);
   }
 
+  insertCompany(db: Knex, data){
+    return db(this.dbName)
+    .insert(data)
+  }
+  updateCompany(db: Knex, data){
+    return db(this.dbName)
+    .update(data)
+    .where('idCompany', data.idCompany);
+  }
+
 }

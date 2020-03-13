@@ -8,25 +8,39 @@ export class WithdrawModel {
       .insert(data)
   }
 
+  getWithdraw(db: Knex) {
+    return db(this.dbName)
+      .innerJoin('Ward', 'Ward.wardId', 'Withdraw.Ward_wardId');
+  }
+
+  checkPerMonth(db: Knex, date1, date2) {
+    return (
+      db(this.dbName)
+        .leftJoin('Ward', 'Ward.wardId', 'Withdraw.Ward_wardId')
+        .select('withdraw.withdrawCode')
+        .whereBetween('withdraw.withdrawDate', ['"'+date1+'"','"'+date2+'"'])
+    );
+  }
+
   overviewOffline(db: Knex) {
     return db(this.dbName)
-    .innerJoin('Ward', 'Ward.wardId', 'Withdraw.Ward_wardId')
+      .innerJoin('Ward', 'Ward.wardId', 'Withdraw.Ward_wardId')
       // .innerJoin('WithdrawDetail', 'WithdrawDetail.Withdraw_withdrawId', 'Withdraw.withdrawId')
       // .innerJoin ( 'Cloth' ,'Cloth.clothId' ,'WithdrawDetail.Cloth_clothId')
       .where('active_status', 'off')
       .groupBy('withdrawCode')
   }
 
-  changeActiveOff(db: Knex, withdrawCode){
+  changeActiveOff(db: Knex, withdrawCode) {
     return db(this.dbName)
-    .update('active_status', 'off')
-    .where('withdrawCode', withdrawCode);
+      .update('active_status', 'off')
+      .where('withdrawCode', withdrawCode);
   }
 
   getWithdrawByCode(db: Knex, withdrawCode) {
     return db(this.dbName)
       .innerJoin('Ward', 'Ward.wardId', 'Withdraw.Ward_wardId')
-      .innerJoin('Requisition', 'Requisition.requisitionCode', 'Withdraw.Requisition_requisitionCode')
+      // .innerJoin('Requisition', 'Requisition.requisitionCode', 'Withdraw.Requisition_requisitionCode')
       .where('withdrawCode', withdrawCode);
   }
 
@@ -71,6 +85,19 @@ export class WithdrawModel {
     return db(this.dbName)
       .innerJoin('Ward', 'Ward.wardId', 'Withdraw.Ward_wardId')
       .where('Requisition_requisitionCode', requisitionCode);
+  }
+
+  updateRoundCode(db: Knex, round, withdrawCode) {
+    return db(this.dbName)
+      .update('totalRound', round)
+      .where('withdrawCode', withdrawCode);
+  }
+
+  getWithdrawByCodeNapkin(db: Knex, withdrawCode) {
+    return db(this.dbName)
+      .innerJoin('Ward', 'Ward.wardId', 'Withdraw.Ward_wardId')
+      // .innerJoin('Requisition', 'nk'+'Requisition.requisitionCode', 'Withdraw.Requisition_requisitionCode')
+      .where('withdrawCode', withdrawCode);
   }
 
 }

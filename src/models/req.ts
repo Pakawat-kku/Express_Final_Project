@@ -210,8 +210,21 @@ export class ReqModel {
     .innerJoin ( 'Requisition' ,'Requisition.requisitionCode' ,'RequisitionDetail.Requisition_requisitionCode')
     .innerJoin ( 'Ward' , 'Ward.wardId'  , 'Requisition.Ward_wardId')
     .where('Requisition.status','1')
-    .andWhere('Requisition.status_withdraw','0')
+    // .andWhere('Requisition.status_withdraw','0')
+    .andWhere('RequisitionDetail.statusDetail_withdraw','1')
     .andWhere('Cloth.clothName','ผ้าเช็ดมือ');
+  }
+
+  showReqWaitDetailNapkin(db: Knex, requisitionCode) {
+    return db('RequisitionDetail')
+   .innerJoin ( 'Cloth' , 'Cloth.clothId'  , 'RequisitionDetail.Cloth_clothId')
+   .where('RequisitionDetail.Requisition_requisitionCode', requisitionCode)
+   .andWhere('Cloth.clothName', 'ผ้าเช็ดมือ');
+  }
+
+  getReqNapkin(db: Knex, requisitionCode){
+    return db(this.dbName)
+    .where('Requisition.requisitionCode',requisitionCode)
   }
 
 }

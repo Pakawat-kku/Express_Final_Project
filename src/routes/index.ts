@@ -9,15 +9,18 @@ const jwt = new Jwt();
 const router: Router = Router();
 
 router.get('/', (req: Request, res: Response) => {
-  res.send({ ok: true, message: 'Welcome to RESTful api server!', code: HttpStatus.OK });
+  res.send({ 
+    apiName: 'lms@cs kku',
+    version: '1.0.0',
+    subVersion: '2020.03.12-01'
+  });
 });
 
 router.get('/gen-token', async (req: Request, res: Response) => {
 
   try {
     let payload = {
-      fullname: 'SATIT RIANPIT',
-      username: 'satit',
+      name: 'lms@cs kku',
       id: 1
     }
 

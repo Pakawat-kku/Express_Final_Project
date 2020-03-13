@@ -109,4 +109,18 @@ router.post('/roundByCode', async (req: Request, res: Response) => {
     }
 });
 
+router.post('/getRoundByCodeUser', async (req: Request, res: Response) => {
+    let db = req.db;
+    const Withdraw_withdrawCode = req.body.Withdraw_withdrawCode;
+
+    try {
+        const result: any = await withdrawDetailModel.getRoundByCodeUser(db, Withdraw_withdrawCode);
+
+        res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+
+    } catch (err) {
+        res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });
+    }
+});
+
 export default router;

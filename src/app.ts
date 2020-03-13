@@ -43,7 +43,7 @@ import wareHouseRoute from './routes/wareHouse';
 import availableRoute from './routes/available';
 import pdfRoute from './routes/pdf';
 import usersRoute from './routes/users';
-import warehouse_export_availableRoute from './routes/Warehouse_export_available';
+import warehouse_export_availableRoute from './routes/warehouse_export_available';
 import warehouse_export_availableDetailRoute from './routes/warehouse_export_availableDetail';
 
 
@@ -75,7 +75,7 @@ let connection: MySqlConnectionConfig = {
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   multipleStatements: true,
-  debug: true
+  debug: false
 }
 
 let db = Knex({

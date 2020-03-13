@@ -471,4 +471,44 @@ router.post('/getNapkin', async (req: Request, res: Response) => {
   }
 });
 
+router.post('/showReqWaitDetailNapkin', async (req: Request, res: Response) => {
+  let db = req.db;
+  const requisitionCode = req.body.requisitionCode;
+  try {
+    const result = await reqModel.showReqWaitDetailNapkin(db, requisitionCode);
+    for (const item of result) {
+      item.reqDate = moment(item.reqDate).format('YYYY-MM-DD HH:mm:ss');
+    }
+
+    res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+  } catch (error) {
+    console.log(error.message);
+    res.send({
+      ok: false,
+      statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+      message: error.message
+    });
+  }
+});
+
+router.post('/getReqNapkin', async (req: Request, res: Response) => {
+  let db = req.db;
+  const requisitionCode = req.body.requisitionCode;
+  try {
+    const result = await reqModel.getReqNapkin(db, requisitionCode);
+    for (const item of result) {
+      item.reqDate = moment(item.reqDate).format('YYYY-MM-DD HH:mm:ss');
+    }
+
+    res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+  } catch (error) {
+    console.log(error.message);
+    res.send({
+      ok: false,
+      statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+      message: error.message
+    });
+  }
+});
+
 export default router;

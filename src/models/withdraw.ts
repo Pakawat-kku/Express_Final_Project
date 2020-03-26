@@ -18,7 +18,7 @@ export class WithdrawModel {
       db(this.dbName)
         .leftJoin('Ward', 'Ward.wardId', 'Withdraw.Ward_wardId')
         .select('withdraw.withdrawCode')
-        .whereBetween('withdraw.withdrawDate', ['"'+date1+'"','"'+date2+'"'])
+        .whereBetween('withdraw.withdrawDate', ['"' + date1 + '"', '"' + date2 + '"'])
     );
   }
 
@@ -68,7 +68,15 @@ export class WithdrawModel {
       .innerJoin('Ward', 'Ward.wardId', 'Withdraw.Ward_wardId')
       .whereBetween('Withdraw.withdrawDate', [dateSearch1, dateSearch2])
       .orderBy('withdrawDate', 'asc');
-    // .groupBy('Ward_wardId');
+  }
+
+  searchByDateDetail(db: Knex, wardId) {
+    return db(this.dbName)
+      .innerJoin('Ward', 'Ward.wardId', 'Withdraw.Ward_wardId')
+      // .innerJoin('Cloth', 'Cloth.clothId', 'WithdrawDetail.Cloth_clothId')
+      .innerJoin('WithdrawDetail', 'WithdrawDetail.Withdraw_withdrawCode', 'Withdraw.withdrawCode')
+      .where('Withdraw.Ward_wardId', wardId)
+    // .andWhere('WithdrawDetail.round','Withdraw.totalRound')
   }
 
   searchByWard(db: Knex, wardId, dateSearch1, dateSearch2) {

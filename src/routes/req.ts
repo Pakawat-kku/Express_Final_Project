@@ -104,6 +104,27 @@ router.get('/showReqWaitDetailOnly', async (req: Request, res: Response) => {
   }
 });
 
+router.get('/showReqWaitDetailDept', async (req: Request, res: Response) => {
+  let db = req.db;
+  const requisitionCode = req.query.requisitionCode;
+
+  try {
+    const result = await reqModel.showReqWaitDetailDept(db, requisitionCode);
+    for (const item of result) {
+      item.reqDate = moment(item.reqDate).format('YYYY-MM-DD HH:mm:ss');
+    }
+
+    res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+  } catch (error) {
+    console.log(error.message);
+    res.send({
+      ok: false,
+      statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+      message: error.message
+    });
+  }
+});
+
 router.get('/showReqWaitAdmin', async (req: Request, res: Response) => {
   let db = req.db;
 

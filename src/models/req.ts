@@ -42,9 +42,14 @@ export class ReqModel {
    .where('requisitionCode', requisitionCode);
   }
 
+  showReqWaitDetailDept(db: Knex, requisitionCode) {
+    return db('Requisition')
+   .where('requisitionCode', requisitionCode);
+  }
+
   showReqWaitAdmin(db: Knex) {
     return db('Requisition')
-   .innerJoin ( 'Ward' ,'Ward.wardId' ,'Requisition.Ward_wardId')
+  //  .innerJoin ( 'Ward' ,'Ward.wardId' ,'Requisition.Ward_wardId')
   //  .innerJoin ( 'Cloth' , 'Cloth.clothId'  , 'RequisitionDetail.Cloth_clothId')
    .where('status', '0')
    .orderBy('reqDate', 'desc');
@@ -53,7 +58,7 @@ export class ReqModel {
 
   showReqWaitAdminApprove(db: Knex) {
     return db('Requisition')
-   .innerJoin ( 'Ward' ,'Ward.wardId' ,'Requisition.Ward_wardId')
+  //  .innerJoin ( 'Ward' ,'Ward.wardId' ,'Requisition.Ward_wardId')
   //  .innerJoin ( 'Cloth' , 'Cloth.clothId'  , 'RequisitionDetail.Cloth_clothId')
    .where('status', '1')
    .orderBy('reqDate', 'desc');

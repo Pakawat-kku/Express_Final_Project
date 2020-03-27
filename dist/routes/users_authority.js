@@ -46,6 +46,22 @@ router.post('/getById', (req, res) => __awaiter(this, void 0, void 0, function* 
         });
     }
 }));
+router.post('/getByAuth', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    let db = req.db;
+    let Authority_aId = req.body.Authority_aId;
+    try {
+        const result = yield users_authorityModel.getByAuth(db, Authority_aId);
+        res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+    }
+    catch (error) {
+        console.log(error.message);
+        res.send({
+            ok: false,
+            statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+            message: error.message
+        });
+    }
+}));
 router.post('/', (req, res) => __awaiter(this, void 0, void 0, function* () {
     let db = req.db;
     let data = req.body.data;

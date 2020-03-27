@@ -68,6 +68,13 @@ class WithdrawModel {
             .whereBetween('Withdraw.withdrawDate', [dateSearch1, dateSearch2])
             .orderBy('withdrawDate', 'asc');
     }
+    searchByCode(db, withdrawCode, dateSearch1, dateSearch2) {
+        return db(this.dbName)
+            .innerJoin('Ward', 'Ward.wardId', 'Withdraw.Ward_wardId')
+            .where('withdrawCode', withdrawCode)
+            .whereBetween('Withdraw.withdrawDate', [dateSearch1, dateSearch2])
+            .orderBy('withdrawDate', 'asc');
+    }
     getWithdrawByReq(db, requisitionCode) {
         return db(this.dbName)
             .innerJoin('Ward', 'Ward.wardId', 'Withdraw.Ward_wardId')

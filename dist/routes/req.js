@@ -104,6 +104,25 @@ router.get('/showReqWaitDetailOnly', (req, res) => __awaiter(this, void 0, void 
         });
     }
 }));
+router.get('/showReqWaitDetailDept', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    let db = req.db;
+    const requisitionCode = req.query.requisitionCode;
+    try {
+        const result = yield reqModel.showReqWaitDetailDept(db, requisitionCode);
+        for (const item of result) {
+            item.reqDate = moment(item.reqDate).format('YYYY-MM-DD HH:mm:ss');
+        }
+        res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+    }
+    catch (error) {
+        console.log(error.message);
+        res.send({
+            ok: false,
+            statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+            message: error.message
+        });
+    }
+}));
 router.get('/showReqWaitAdmin', (req, res) => __awaiter(this, void 0, void 0, function* () {
     let db = req.db;
     try {

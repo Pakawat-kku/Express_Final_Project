@@ -27,15 +27,17 @@ class ReqModel {
             .innerJoin('Ward', 'Ward.wardId', 'Requisition.Ward_wardId')
             .where('requisitionCode', requisitionCode);
     }
+    showReqWaitDetailDept(db, requisitionCode) {
+        return db('Requisition')
+            .where('requisitionCode', requisitionCode);
+    }
     showReqWaitAdmin(db) {
         return db('Requisition')
-            .innerJoin('Ward', 'Ward.wardId', 'Requisition.Ward_wardId')
             .where('status', '0')
             .orderBy('reqDate', 'desc');
     }
     showReqWaitAdminApprove(db) {
         return db('Requisition')
-            .innerJoin('Ward', 'Ward.wardId', 'Requisition.Ward_wardId')
             .where('status', '1')
             .orderBy('reqDate', 'desc');
     }

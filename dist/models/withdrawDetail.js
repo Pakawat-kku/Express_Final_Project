@@ -24,6 +24,7 @@ class WithdrawDetailModel {
     getWithdrawByUserId(db, userId) {
         return db(this.dbName)
             .innerJoin('Withdraw', 'Withdraw.withdrawCode', 'WithdrawDetail.Withdraw_withdrawCode')
+            .innerJoin('Users', 'Users.userId', 'WithdrawDetail.Users_userId')
             .where('Users_userId', userId)
             .groupBy('withdrawCode');
     }

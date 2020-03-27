@@ -12,6 +12,11 @@ class Users_AuthorityModel {
             .innerJoin('Authority', 'Authority.aId', 'Users_Authority.Authority_aId')
             .where('Users_userId', Users_userId);
     }
+    getByAuth(db, Authority_aId) {
+        return db(this.dbName)
+            .innerJoin('Users', 'Users.userId', 'Users_Authority.Users_userId')
+            .where('Authority_aId', Authority_aId);
+    }
     insert(db, data) {
         return db(this.dbName)
             .insert(data);

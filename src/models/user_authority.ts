@@ -13,6 +13,12 @@ export class Users_AuthorityModel {
     .where('Users_userId', Users_userId);
   }
 
+  getByAuth(db: Knex, Authority_aId) {
+    return db(this.dbName)
+    .innerJoin ('Users', 'Users.userId', 'Users_Authority.Users_userId')
+    .where('Authority_aId', Authority_aId);
+  }
+
   insert(db: Knex, data) {
     return db(this.dbName)
       .insert(data);

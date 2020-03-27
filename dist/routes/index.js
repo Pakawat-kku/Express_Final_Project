@@ -14,7 +14,11 @@ const HttpStatus = require("http-status-codes");
 const jwt = new jwt_1.Jwt();
 const router = express_1.Router();
 router.get('/', (req, res) => {
-    res.send({ ok: true, message: 'Welcome to RESTful api server!', code: HttpStatus.OK });
+    res.send({
+        apiName: 'lms@cs kku',
+        version: '1.0.0',
+        subVersion: '2020.03.12-01'
+    });
 });
 router.get('/gen-token', (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {

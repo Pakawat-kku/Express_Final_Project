@@ -26,6 +26,16 @@ router.post('/', (req, res) => __awaiter(this, void 0, void 0, function* () {
         res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });
     }
 }));
+router.get('/', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    let db = req.db;
+    try {
+        const result = yield withdrawModel.getWithdraw(db);
+        res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+    }
+    catch (err) {
+        res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });
+    }
+}));
 router.get('/off', (req, res) => __awaiter(this, void 0, void 0, function* () {
     let db = req.db;
     try {
@@ -52,6 +62,18 @@ router.post('/getByCode', (req, res) => __awaiter(this, void 0, void 0, function
     const withdrawCode = req.body.withdrawCode;
     try {
         const result = yield withdrawModel.getWithdrawByCode(db, withdrawCode);
+        res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+    }
+    catch (err) {
+        res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });
+    }
+}));
+router.post('/checkMonth', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    let db = req.db;
+    const date1 = req.body.date1;
+    const date2 = req.body.date2;
+    try {
+        const result = yield withdrawModel.checkPerMonth(db, date1, date2);
         res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
     }
     catch (err) {
@@ -98,6 +120,17 @@ router.post('/searchByDate', (req, res) => __awaiter(this, void 0, void 0, funct
     const dateSearch2 = req.body.dateSearch2;
     try {
         const result = yield withdrawModel.searchByDate(db, dateSearch1, dateSearch2);
+        res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+    }
+    catch (err) {
+        res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });
+    }
+}));
+router.post('/searchByDateDetail', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    let db = req.db;
+    const wardId = req.body.wardId;
+    try {
+        const result = yield withdrawModel.searchByDateDetail(db, wardId);
         res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
     }
     catch (err) {

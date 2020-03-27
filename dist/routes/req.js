@@ -452,5 +452,53 @@ router.post('/getReqNapkin', (req, res) => __awaiter(this, void 0, void 0, funct
         });
     }
 }));
+router.post('/searchByDate', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    let db = req.db;
+    const dateSearch1 = req.body.dateSearch1;
+    const dateSearch2 = req.body.dateSearch2;
+    try {
+        const result = yield reqModel.searchByDate(db, dateSearch1, dateSearch2);
+        res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+    }
+    catch (err) {
+        res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });
+    }
+}));
+router.post('/searchByDateGroupbyWard', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    let db = req.db;
+    const dateSearch1 = req.body.dateSearch1;
+    const dateSearch2 = req.body.dateSearch2;
+    try {
+        const result = yield reqModel.searchByDateGroupbyWard(db, dateSearch1, dateSearch2);
+        res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+    }
+    catch (err) {
+        res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });
+    }
+}));
+router.post('/searchByDateAmount', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    let db = req.db;
+    const requisitionCode = req.body.requisitionCode;
+    try {
+        const result = yield reqModel.searchByDateAmount(db, requisitionCode);
+        res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+    }
+    catch (err) {
+        res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });
+    }
+}));
+router.post('/searchByWard', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    let db = req.db;
+    const wardId = req.body.wardId;
+    const dateSearch1 = req.body.dateSearch1;
+    const dateSearch2 = req.body.dateSearch2;
+    try {
+        const result = yield reqModel.searchByWard(db, wardId, dateSearch1, dateSearch2);
+        res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+    }
+    catch (err) {
+        res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });
+    }
+}));
 exports.default = router;
 //# sourceMappingURL=req.js.map

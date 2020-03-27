@@ -21,6 +21,10 @@ class ImportClothModel {
             .leftJoin('ImportDetailWeightSum', 'ImportDetailWeightSum.ImportCloth_importCode', 'ImportCloth.ImportCode')
             .where('ImportCode', importCode);
     }
+    getImportClothWhereCompany(db, companyId) {
+        return db(this.dbName)
+            .where('Company_idCompany', companyId);
+    }
     getBy(db, importCode) {
         return db(this.dbName)
             .leftJoin('ImportDetailWeight', 'ImportDetailWeight.Import_importCode', 'ImportCloth.ImportCode')

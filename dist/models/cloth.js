@@ -22,6 +22,10 @@ class ClothModel {
             .innerJoin('ClothType', 'Cloth.ClothType_clothTypeId', 'ClothType.clothTypeId')
             .where('Cloth.clothName', "like", "%" + search + "%");
     }
+    getClothById(db, clothId) {
+        return db(this.dbName)
+            .where('clothId', clothId);
+    }
 }
 exports.ClothModel = ClothModel;
 //# sourceMappingURL=cloth.js.map

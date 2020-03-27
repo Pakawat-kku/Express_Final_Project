@@ -8,6 +8,16 @@ class WithdrawModel {
         return db(this.dbName)
             .insert(data);
     }
+    getWithdraw(db) {
+        return db(this.dbName)
+            .innerJoin('Ward', 'Ward.wardId', 'Withdraw.Ward_wardId');
+    }
+    checkPerMonth(db, date1, date2) {
+        return (db(this.dbName)
+            .leftJoin('Ward', 'Ward.wardId', 'Withdraw.Ward_wardId')
+            .select('withdraw.withdrawCode')
+            .whereBetween('withdraw.withdrawDate', ['"' + date1 + '"', '"' + date2 + '"']));
+    }
     overviewOffline(db) {
         return db(this.dbName)
             .innerJoin('Ward', 'Ward.wardId', 'Withdraw.Ward_wardId')
@@ -22,7 +32,6 @@ class WithdrawModel {
     getWithdrawByCode(db, withdrawCode) {
         return db(this.dbName)
             .innerJoin('Ward', 'Ward.wardId', 'Withdraw.Ward_wardId')
-            .innerJoin('Requisition', 'Requisition.requisitionCode', 'Withdraw.Requisition_requisitionCode')
             .where('withdrawCode', withdrawCode);
     }
     statusWithdraw(db, withdrawCode) {
@@ -45,6 +54,12 @@ class WithdrawModel {
             .innerJoin('Ward', 'Ward.wardId', 'Withdraw.Ward_wardId')
             .whereBetween('Withdraw.withdrawDate', [dateSearch1, dateSearch2])
             .orderBy('withdrawDate', 'asc');
+    }
+    searchByDateDetail(db, wardId) {
+        return db(this.dbName)
+            .innerJoin('Ward', 'Ward.wardId', 'Withdraw.Ward_wardId')
+            .innerJoin('WithdrawDetail', 'WithdrawDetail.Withdraw_withdrawCode', 'Withdraw.withdrawCode')
+            .where('Withdraw.Ward_wardId', wardId);
     }
     searchByWard(db, wardId, dateSearch1, dateSearch2) {
         return db(this.dbName)

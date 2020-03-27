@@ -169,6 +169,35 @@ class ReqModel {
         return db(this.dbName)
             .where('Requisition.requisitionCode', requisitionCode);
     }
+    searchByDate(db, dateSearch1, dateSearch2) {
+        return db(this.dbName)
+            .innerJoin('Ward', 'Ward.wardId', 'Requisition.Ward_wardId')
+            .innerJoin('RequisitionDetail', 'RequisitionDetail.Requisition_requisitionCode', 'Requisition.requisitionCode')
+            .where('Requisition.status', '1')
+            .whereBetween('Requisition.reqDate', [dateSearch1, dateSearch2])
+            .orderBy('Ward.wardId', 'asc');
+    }
+    searchByDateGroupbyWard(db, dateSearch1, dateSearch2) {
+        return db(this.dbName)
+            .innerJoin('Ward', 'Ward.wardId', 'Requisition.Ward_wardId')
+            .where('Requisition.status', '1')
+            .whereBetween('Requisition.reqDate', [dateSearch1, dateSearch2])
+            .orderBy('Ward.wardId', 'asc')
+            .groupBy('Requisition.Ward_wardId');
+    }
+    searchByDateAmount(db, requisitionCode) {
+        return db('RequisitionDetail')
+            .where('Requisition_requisitionCode', requisitionCode);
+    }
+    searchByWard(db, wardId, dateSearch1, dateSearch2) {
+        return db(this.dbName)
+            .innerJoin('Ward', 'Ward.wardId', 'Requisition.Ward_wardId')
+            .innerJoin('RequisitionDetail', 'RequisitionDetail.Requisition_requisitionCode', 'Requisition.requisitionCode')
+            .where('Requisition.status', '1')
+            .where('Ward_wardId', wardId)
+            .whereBetween('Requisition.reqDate', [dateSearch1, dateSearch2])
+            .orderBy('reqDate', 'asc');
+    }
 }
 exports.ReqModel = ReqModel;
 //# sourceMappingURL=req.js.map

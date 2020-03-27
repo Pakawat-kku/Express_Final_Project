@@ -163,6 +163,19 @@ router.post('/searchByWard', async (req: Request, res: Response) => {
     }
 });
 
+router.post('/searchByCode', async (req: Request, res: Response) => {
+    let db = req.db;
+    const withdrawCode = req.body.withdrawCode;
+    const dateSearch1 = req.body.dateSearch1;
+    const dateSearch2 = req.body.dateSearch2;
+    try {
+        const result: any = await withdrawModel.searchByCode(db,withdrawCode, dateSearch1,dateSearch2);
+        res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+    } catch (err) {
+        res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });
+    }
+});
+
 router.post('/getByReq', async (req: Request, res: Response) => {
     let db = req.db;
     const requisitionCode = req.body.requisitionCode

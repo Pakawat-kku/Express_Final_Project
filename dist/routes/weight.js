@@ -11,14 +11,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const jwt_1 = require("../models/jwt");
 const HttpStatus = require("http-status-codes");
-const company_1 = require("../models/company");
+const weight_1 = require("../models/weight");
 const jwt = new jwt_1.Jwt();
 const router = express_1.Router();
-const companyModel = new company_1.CompanyModel();
+const weightModel = new weight_1.WeightModel();
 router.get('/', (req, res) => __awaiter(this, void 0, void 0, function* () {
     let db = req.db;
     try {
-        const result = yield companyModel.getCompany(db);
+        const result = yield weightModel.getWeight(db);
         res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
     }
     catch (error) {
@@ -30,11 +30,11 @@ router.get('/', (req, res) => __awaiter(this, void 0, void 0, function* () {
         });
     }
 }));
-router.post('/', (req, res) => __awaiter(this, void 0, void 0, function* () {
+router.post('/getWeightByCode', (req, res) => __awaiter(this, void 0, void 0, function* () {
     let db = req.db;
-    let data = req.body.data;
+    let importCode = req.body.importCode;
     try {
-        const result = yield companyModel.insertCompany(db, data);
+        const result = yield weightModel.getWeightByCode(db, importCode);
         res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
     }
     catch (error) {
@@ -46,11 +46,28 @@ router.post('/', (req, res) => __awaiter(this, void 0, void 0, function* () {
         });
     }
 }));
-router.post('/update', (req, res) => __awaiter(this, void 0, void 0, function* () {
+router.post('/insertWeight', (req, res) => __awaiter(this, void 0, void 0, function* () {
     let db = req.db;
     let data = req.body.data;
     try {
-        const result = yield companyModel.updateCompany(db, data);
+        const result = yield weightModel.insertWeight(db, data);
+        res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+    }
+    catch (error) {
+        console.log(error.message);
+        res.send({
+            ok: false,
+            statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+            message: error.message
+        });
+    }
+}));
+router.post('/updateWeight', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    let db = req.db;
+    let data = req.body.data;
+    let clothId = req.body.clothId;
+    try {
+        const result = yield weightModel.updateWeight(db, data);
         res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
     }
     catch (error) {
@@ -63,4 +80,4 @@ router.post('/update', (req, res) => __awaiter(this, void 0, void 0, function* (
     }
 }));
 exports.default = router;
-//# sourceMappingURL=company.js.map
+//# sourceMappingURL=weight.js.map

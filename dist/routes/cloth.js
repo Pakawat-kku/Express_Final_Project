@@ -78,5 +78,21 @@ router.post('/search', (req, res) => __awaiter(this, void 0, void 0, function* (
         });
     }
 }));
+router.post('/getClothById', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    let db = req.db;
+    let clothId = req.body.clothId;
+    try {
+        const result = yield clothModel.getClothById(db, clothId);
+        res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+    }
+    catch (error) {
+        console.log(error.message);
+        res.send({
+            ok: false,
+            statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+            message: error.message
+        });
+    }
+}));
 exports.default = router;
 //# sourceMappingURL=cloth.js.map

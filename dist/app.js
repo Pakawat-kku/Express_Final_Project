@@ -40,6 +40,7 @@ const pdf_1 = require("./routes/pdf");
 const users_1 = require("./routes/users");
 const warehouse_export_available_1 = require("./routes/warehouse_export_available");
 const warehouse_export_availableDetail_1 = require("./routes/warehouse_export_availableDetail");
+const weight_1 = require("./routes/weight");
 const app = express();
 const jwt = new jwt_1.Jwt();
 app.set('views', path.join(__dirname, '../views'));
@@ -127,6 +128,7 @@ app.use('/wareHouse', wareHouse_1.default);
 app.use('/available', available_1.default);
 app.use('/warehouse_export_available', warehouse_export_available_1.default);
 app.use('/warehouse_export_availableDetail', warehouse_export_availableDetail_1.default);
+app.use('/weight', weight_1.default);
 app.use('/pdf', pdf_1.default);
 app.use('/', index_1.default);
 if (process.env.NODE_ENV === 'development') {

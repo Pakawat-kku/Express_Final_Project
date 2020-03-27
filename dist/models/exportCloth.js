@@ -27,7 +27,7 @@ class ExportClothModel {
     }
     showExportClothHospital(db, exportClothCode) {
         return db(this.dbName)
-            .where('ExportCloth.exportClothCode', exportClothCode);
+            .where('exportClothCode', exportClothCode);
     }
     showExportClothCompany(db, exportClothCode) {
         return db(this.dbName)

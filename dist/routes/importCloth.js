@@ -62,6 +62,22 @@ router.post('/by', (req, res) => __awaiter(this, void 0, void 0, function* () {
         });
     }
 }));
+router.post('/getImportClothWhereCompany', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    let db = req.db;
+    let companyId = req.body.companyId;
+    try {
+        const result = yield importClothModel.getImportClothWhereCompany(db, companyId);
+        res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+    }
+    catch (error) {
+        console.log(error.message);
+        res.send({
+            ok: false,
+            statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+            message: error.message
+        });
+    }
+}));
 router.post('/getInner', (req, res) => __awaiter(this, void 0, void 0, function* () {
     let db = req.db;
     let Export_exportClothCode = req.body.Export_exportClothCode;

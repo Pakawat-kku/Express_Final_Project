@@ -73,5 +73,17 @@ router.post('/getByClothId', async (req: Request, res: Response) => {
   }
 });
 
+router.post('/searchByDate', async (req: Request, res: Response) => {
+  let db = req.db;
+  const dateSearch1 = req.body.dateSearch1;
+  const dateSearch2 = req.body.dateSearch2;
+  try {
+      const result: any = await damageModel.searchByDate(db, dateSearch1,dateSearch2);
+      res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+  } catch (err) {
+      res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });
+  }
+});
+
 
 export default router;

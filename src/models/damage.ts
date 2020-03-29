@@ -26,4 +26,12 @@ export class DamageModel {
       .insert(data)
   }
 
+  searchByDate(db: Knex, dateSearch1, dateSearch2) {
+    return db(this.dbName)
+      // .innerJoin ( 'Cloth' ,'Cloth.clothId' ,'Repairs.Cloth_clothId')
+      .whereBetween('damageDate', [dateSearch1, dateSearch2])
+      .orderBy('Cloth_clothId', 'asc')
+      // .groupBy('Requisition.Ward_wardId');
+  }
+
 }

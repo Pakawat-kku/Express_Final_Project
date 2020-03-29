@@ -137,5 +137,22 @@ router.post('/getPorter', (req, res) => __awaiter(this, void 0, void 0, function
         });
     }
 }));
+router.post('/getOverview', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    let db = req.db;
+    let date1 = req.body.date1;
+    let date2 = req.body.date2;
+    try {
+        const result = yield wardModel.getOverview(db, date1, date2);
+        res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+    }
+    catch (error) {
+        console.log(error.message);
+        res.send({
+            ok: false,
+            statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+            message: error.message
+        });
+    }
+}));
 exports.default = router;
 //# sourceMappingURL=ward.js.map

@@ -107,5 +107,18 @@ router.post('/getRoundByCodeUser', (req, res) => __awaiter(this, void 0, void 0,
         res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });
     }
 }));
+router.post('/searchByWard', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    let db = req.db;
+    const wardId = req.body.wardId;
+    const dateSearch1 = req.body.dateSearch1;
+    const dateSearch2 = req.body.dateSearch2;
+    try {
+        const result = yield withdrawDetailModel.searchByWard(db, wardId, dateSearch1, dateSearch2);
+        res.send({ ok: true, statusCode: HttpStatus.OK, rows: result });
+    }
+    catch (err) {
+        res.send({ ok: false, statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: err.message });
+    }
+}));
 exports.default = router;
 //# sourceMappingURL=withdrawDetail.js.map

@@ -56,4 +56,21 @@ export class WardModel {
       .where('Users_userId', Users_userId)
   }
 
+  getOverview(db: Knex, date1, date2) {
+    return db(this.dbName)
+    .select('Ward.wardId',
+    'Ward.wardName',
+    'RequisitionDetail.Cloth_clothId',
+    'RequisitionDetail.amountClothReal',
+    'Requisition.status',
+    'Requisition.RequisitionCode',
+    'Requisition.reqDate')
+    .leftJoin('Requisition','Ward.wardId','Requisition.Ward_wardId')
+    .leftJoin('RequisitionDetail','Requisition.RequisitionCode','RequisitionDetail.Requisition_requisitionCode')
+    // .sum('RequisitionDetail.amountClothReal as sumReq')
+    .where('Requisition.status','1')
+    .groupBy('Ward.wardId')
+    .whereBetween('Requisition.reqDate', ['"' + date1 + '"', '"' + date2 + '"'])
+  }
+
 }

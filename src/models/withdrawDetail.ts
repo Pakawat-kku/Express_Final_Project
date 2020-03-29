@@ -56,4 +56,14 @@ export class WithdrawDetailModel {
     .where('Withdraw_withdrawCode',Withdraw_withdrawCode)
   }
 
+  searchByWard(db: Knex, wardId, dateSearch1, dateSearch2) {
+    return db(this.dbName)
+      .innerJoin('Ward', 'Ward.wardId', 'WithdrawDetail.Ward_wardId')
+      .innerJoin('WithdrawDetail', 'WithdrawDetail.Withdraw_withdrawCode', 'Withdraw.withdrawCode')
+      .where('Withdraw.status', '1')
+      .where('Ward_wardId', wardId)
+      .whereBetween('Withdraw.withdrawDate', [dateSearch1, dateSearch2])
+      .orderBy('waithdrawDate', 'asc');
+  }
+
 }

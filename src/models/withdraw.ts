@@ -116,4 +116,15 @@ export class WithdrawModel {
       .where('withdrawCode', withdrawCode);
   }
 
+  searchByWardDetail(db: Knex, wardId, dateSearch1, dateSearch2) {
+    return db(this.dbName)
+      .innerJoin('Ward', 'Ward.wardId', 'Withdraw.Ward_wardId')
+      .innerJoin('WithdrawDetail', 'Withdraw.withdrawCode', 'WithdrawDetail.Withdraw_withdrawCode')
+      .innerJoin('Cloth','Cloth.clothId','WithdrawDetail.Cloth_clothId')
+      // .where('Withdraw.status', '1')
+      .where('Ward_wardId', wardId)
+      .whereBetween('Withdraw.withdrawDate', [dateSearch1, dateSearch2])
+      // .orderBy('withdrawDate', 'asc');
+  }
+
 }

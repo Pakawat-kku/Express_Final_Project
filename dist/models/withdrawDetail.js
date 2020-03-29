@@ -49,6 +49,15 @@ class WithdrawDetailModel {
             .innerJoin('Cloth', 'Cloth.clothId', 'WithdrawDetail.Cloth_clothId')
             .where('Withdraw_withdrawCode', Withdraw_withdrawCode);
     }
+    searchByWard(db, wardId, dateSearch1, dateSearch2) {
+        return db(this.dbName)
+            .innerJoin('Ward', 'Ward.wardId', 'WithdrawDetail.Ward_wardId')
+            .innerJoin('WithdrawDetail', 'WithdrawDetail.Withdraw_withdrawCode', 'Withdraw.withdrawCode')
+            .where('Withdraw.status', '1')
+            .where('Ward_wardId', wardId)
+            .whereBetween('Withdraw.withdrawDate', [dateSearch1, dateSearch2])
+            .orderBy('waithdrawDate', 'asc');
+    }
 }
 exports.WithdrawDetailModel = WithdrawDetailModel;
 //# sourceMappingURL=withdrawDetail.js.map

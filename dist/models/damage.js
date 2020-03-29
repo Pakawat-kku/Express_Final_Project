@@ -23,6 +23,11 @@ class DamageModel {
         return db(this.dbName)
             .insert(data);
     }
+    searchByDate(db, dateSearch1, dateSearch2) {
+        return db(this.dbName)
+            .whereBetween('damageDate', [dateSearch1, dateSearch2])
+            .orderBy('Cloth_clothId', 'asc');
+    }
 }
 exports.DamageModel = DamageModel;
 //# sourceMappingURL=damage.js.map

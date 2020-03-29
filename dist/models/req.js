@@ -195,10 +195,10 @@ class ReqModel {
         return db(this.dbName)
             .innerJoin('Ward', 'Ward.wardId', 'Requisition.Ward_wardId')
             .innerJoin('RequisitionDetail', 'RequisitionDetail.Requisition_requisitionCode', 'Requisition.requisitionCode')
+            .innerJoin('Cloth', 'Cloth.clothId', 'RequisitionDetail.Cloth_clothId')
             .where('Requisition.status', '1')
             .where('Ward_wardId', wardId)
-            .whereBetween('Requisition.reqDate', [dateSearch1, dateSearch2])
-            .orderBy('reqDate', 'asc');
+            .whereBetween('Requisition.reqDate', [dateSearch1, dateSearch2]);
     }
 }
 exports.ReqModel = ReqModel;

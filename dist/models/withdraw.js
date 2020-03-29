@@ -92,12 +92,11 @@ class WithdrawModel {
     }
     searchByWardDetail(db, wardId, dateSearch1, dateSearch2) {
         return db(this.dbName)
-            .innerJoin('Ward', 'Ward.wardId', 'WithdrawDetail.Ward_wardId')
-            .innerJoin('WithdrawDetail', 'WithdrawDetail.Withdraw_withdrawCode', 'Withdraw.withdrawCode')
-            .where('Withdraw.status', '1')
+            .innerJoin('Ward', 'Ward.wardId', 'Withdraw.Ward_wardId')
+            .innerJoin('WithdrawDetail', 'Withdraw.withdrawCode', 'WithdrawDetail.Withdraw_withdrawCode')
+            .innerJoin('Cloth', 'Cloth.clothId', 'WithdrawDetail.Cloth_clothId')
             .where('Ward_wardId', wardId)
-            .whereBetween('Withdraw.withdrawDate', [dateSearch1, dateSearch2])
-            .orderBy('waithdrawDate', 'asc');
+            .whereBetween('Withdraw.withdrawDate', [dateSearch1, dateSearch2]);
     }
 }
 exports.WithdrawModel = WithdrawModel;

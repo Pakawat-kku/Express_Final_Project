@@ -23,6 +23,12 @@ class RepairModel {
         return db(this.dbName)
             .insert(data);
     }
+    searchByDate(db, dateSearch1, dateSearch2) {
+        return db(this.dbName)
+            .innerJoin('Cloth', 'Cloth.clothId', 'Repairs.Cloth_clothId')
+            .whereBetween('repairDate', [dateSearch1, dateSearch2])
+            .orderBy('Cloth_clothId', 'asc');
+    }
 }
 exports.RepairModel = RepairModel;
 //# sourceMappingURL=repair.js.map

@@ -3,5 +3,6 @@
 tsc
 find ./dist -name '*.map' -type f -delete
 scp -r dist/. lms@203.157.88.89:/var/www/app/api/lms/app
+scp auto_reload lms@203.157.88.89:/var/www/app/api/lms
 # scp .env lms@203.157.88.89:/var/www/app/api/lms
 # scp *.json lms@203.157.88.89:/var/www/app/api/lms
